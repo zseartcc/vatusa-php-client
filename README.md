@@ -22,11 +22,11 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/vatusa/php-client.git"
+      "url": "https://github.com/zseartcc/vatusa-php-client.git"
     }
   ],
   "require": {
-    "vatusa/php-client": "*@dev"
+    "zseartcc/vatusa-php-client": "*@dev"
   }
 }
 ```
