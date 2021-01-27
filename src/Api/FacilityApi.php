@@ -2571,6 +2571,694 @@ class FacilityApi
     }
 
     /**
+     * Operation facilityIdRosterManageVisitorCidDelete
+     *
+     * Delete member from visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     * @param  string $reason Reason for deletion (required)
+     *
+     * @throws \VATUSA\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \VATUSA\Client\Model\OK
+     */
+    public function facilityIdRosterManageVisitorCidDelete($id, $cid, $reason)
+    {
+        list($response) = $this->facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $reason);
+        return $response;
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidDeleteWithHttpInfo
+     *
+     * Delete member from visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     * @param  string $reason Reason for deletion (required)
+     *
+     * @throws \VATUSA\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \VATUSA\Client\Model\OK, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $reason)
+    {
+        $returnType = '\VATUSA\Client\Model\OK';
+        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\OK',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidDeleteAsync
+     *
+     * Delete member from visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     * @param  string $reason Reason for deletion (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function facilityIdRosterManageVisitorCidDeleteAsync($id, $cid, $reason)
+    {
+        return $this->facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo
+     *
+     * Delete member from visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     * @param  string $reason Reason for deletion (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+    {
+        $returnType = '\VATUSA\Client\Model\OK';
+        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'facilityIdRosterManageVisitorCidDelete'
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     * @param  string $reason Reason for deletion (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling facilityIdRosterManageVisitorCidDelete'
+            );
+        }
+        // verify the required parameter 'cid' is set
+        if ($cid === null || (is_array($cid) && count($cid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cid when calling facilityIdRosterManageVisitorCidDelete'
+            );
+        }
+        // verify the required parameter 'reason' is set
+        if ($reason === null || (is_array($reason) && count($reason) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $reason when calling facilityIdRosterManageVisitorCidDelete'
+            );
+        }
+
+        $resourcePath = '/facility/{id}/roster/manageVisitor/{cid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($cid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'cid' . '}',
+                ObjectSerializer::toPathValue($cid),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($reason)) {
+            $_tempBody = $reason;
+        }
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            
+            if($headers['Content-Type'] === 'application/json') {
+                // \stdClass has no __toString(), so we should encode it manually
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                // array has no __toString(), so we should encode it manually
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('apikey');
+        if ($apiKey !== null) {
+            $queryParams['apikey'] = $apiKey;
+        }
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'DELETE',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidPost
+     *
+     * Add member to visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     *
+     * @throws \VATUSA\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \VATUSA\Client\Model\OK
+     */
+    public function facilityIdRosterManageVisitorCidPost($id, $cid)
+    {
+        list($response) = $this->facilityIdRosterManageVisitorCidPostWithHttpInfo($id, $cid);
+        return $response;
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidPostWithHttpInfo
+     *
+     * Add member to visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     *
+     * @throws \VATUSA\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \VATUSA\Client\Model\OK, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function facilityIdRosterManageVisitorCidPostWithHttpInfo($id, $cid)
+    {
+        $returnType = '\VATUSA\Client\Model\OK';
+        $request = $this->facilityIdRosterManageVisitorCidPostRequest($id, $cid);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\OK',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\VATUSA\Client\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidPostAsync
+     *
+     * Add member to visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function facilityIdRosterManageVisitorCidPostAsync($id, $cid)
+    {
+        return $this->facilityIdRosterManageVisitorCidPostAsyncWithHttpInfo($id, $cid)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation facilityIdRosterManageVisitorCidPostAsyncWithHttpInfo
+     *
+     * Add member to visiting roster. [Key]
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function facilityIdRosterManageVisitorCidPostAsyncWithHttpInfo($id, $cid)
+    {
+        $returnType = '\VATUSA\Client\Model\OK';
+        $request = $this->facilityIdRosterManageVisitorCidPostRequest($id, $cid);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'facilityIdRosterManageVisitorCidPost'
+     *
+     * @param  string $id Facility IATA ID (required)
+     * @param  int $cid CID of controller (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function facilityIdRosterManageVisitorCidPostRequest($id, $cid)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling facilityIdRosterManageVisitorCidPost'
+            );
+        }
+        // verify the required parameter 'cid' is set
+        if ($cid === null || (is_array($cid) && count($cid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cid when calling facilityIdRosterManageVisitorCidPost'
+            );
+        }
+
+        $resourcePath = '/facility/{id}/roster/manageVisitor/{cid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($cid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'cid' . '}',
+                ObjectSerializer::toPathValue($cid),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                ['application/json']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            
+            if($headers['Content-Type'] === 'application/json') {
+                // \stdClass has no __toString(), so we should encode it manually
+                if ($httpBody instanceof \stdClass) {
+                    $httpBody = \GuzzleHttp\json_encode($httpBody);
+                }
+                // array has no __toString(), so we should encode it manually
+                if(is_array($httpBody)) {
+                    $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($httpBody));
+                }
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('apikey');
+        if ($apiKey !== null) {
+            $queryParams['apikey'] = $apiKey;
+        }
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation facilityIdTransfersGet
      *
      * Get pending transfers. [Key]

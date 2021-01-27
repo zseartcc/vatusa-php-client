@@ -132,6 +132,8 @@ Class | Method | HTTP request | Description
 *FacilityApi* | [**facilityIdPut**](docs/Api/FacilityApi.md#facilityidput) | **PUT** /facility/{id} | Update facility information. [Auth]
 *FacilityApi* | [**facilityIdRosterCidDelete**](docs/Api/FacilityApi.md#facilityidrosterciddelete) | **DELETE** /facility/{id}/roster/{cid} | Delete member from facility roster. [Auth]
 *FacilityApi* | [**facilityIdRosterGet**](docs/Api/FacilityApi.md#facilityidrosterget) | **GET** /facility/{id}/roster | Get facility roster.
+*FacilityApi* | [**facilityIdRosterManageVisitorCidDelete**](docs/Api/FacilityApi.md#facilityidrostermanagevisitorciddelete) | **DELETE** /facility/{id}/roster/manageVisitor/{cid} | Delete member from visiting roster. [Key]
+*FacilityApi* | [**facilityIdRosterManageVisitorCidPost**](docs/Api/FacilityApi.md#facilityidrostermanagevisitorcidpost) | **POST** /facility/{id}/roster/manageVisitor/{cid} | Add member to visiting roster. [Key]
 *FacilityApi* | [**facilityIdTransfersGet**](docs/Api/FacilityApi.md#facilityidtransfersget) | **GET** /facility/{id}/transfers | Get pending transfers. [Key]
 *FacilityApi* | [**facilityIdTransfersTransferIdPut**](docs/Api/FacilityApi.md#facilityidtransferstransferidput) | **PUT** /facility/{id}/transfers/{transferId} | Modify transfer request.  [Auth]
 *FacilityApi* | [**facilityIdUlsReturnsGet**](docs/Api/FacilityApi.md#facilityidulsreturnsget) | **GET** /facility/{id}/ulsReturns | Get ULS return paths. [Key]
