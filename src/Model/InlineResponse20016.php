@@ -57,8 +57,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => 'string',
-        'depts' => '\VATUSA\Client\Model\InlineResponse20016Depts[]'
+        'id' => 'int',
+        'cid' => 'int',
+        'lastname' => 'string',
+        'firstname' => 'string',
+        'position' => 'string',
+        'expDate' => 'string'
     ];
 
     /**
@@ -67,8 +71,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'status' => null,
-        'depts' => null
+        'id' => null,
+        'cid' => null,
+        'lastname' => null,
+        'firstname' => null,
+        'position' => null,
+        'expDate' => null
     ];
 
     /**
@@ -98,8 +106,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status',
-        'depts' => 'depts'
+        'id' => 'id',
+        'cid' => 'cid',
+        'lastname' => 'lastname',
+        'firstname' => 'firstname',
+        'position' => 'position',
+        'expDate' => 'expDate'
     ];
 
     /**
@@ -108,8 +120,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus',
-        'depts' => 'setDepts'
+        'id' => 'setId',
+        'cid' => 'setCid',
+        'lastname' => 'setLastname',
+        'firstname' => 'setFirstname',
+        'position' => 'setPosition',
+        'expDate' => 'setExpDate'
     ];
 
     /**
@@ -118,8 +134,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus',
-        'depts' => 'getDepts'
+        'id' => 'getId',
+        'cid' => 'getCid',
+        'lastname' => 'getLastname',
+        'firstname' => 'getFirstname',
+        'position' => 'getPosition',
+        'expDate' => 'getExpDate'
     ];
 
     /**
@@ -182,8 +202,12 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['depts'] = isset($data['depts']) ? $data['depts'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['cid'] = isset($data['cid']) ? $data['cid'] : null;
+        $this->container['lastname'] = isset($data['lastname']) ? $data['lastname'] : null;
+        $this->container['firstname'] = isset($data['firstname']) ? $data['firstname'] : null;
+        $this->container['position'] = isset($data['position']) ? $data['position'] : null;
+        $this->container['expDate'] = isset($data['expDate']) ? $data['expDate'] : null;
     }
 
     /**
@@ -211,49 +235,145 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets status
+     * Gets id
      *
-     * @return string
+     * @return int
      */
-    public function getStatus()
+    public function getId()
     {
-        return $this->container['status'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets status
+     * Sets id
      *
-     * @param string $status status
+     * @param int $id Solo Certification id
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setId($id)
     {
-        $this->container['status'] = $status;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets depts
+     * Gets cid
      *
-     * @return \VATUSA\Client\Model\InlineResponse20016Depts[]
+     * @return int
      */
-    public function getDepts()
+    public function getCid()
     {
-        return $this->container['depts'];
+        return $this->container['cid'];
     }
 
     /**
-     * Sets depts
+     * Sets cid
      *
-     * @param \VATUSA\Client\Model\InlineResponse20016Depts[] $depts depts
+     * @param int $cid CERT ID of user
      *
      * @return $this
      */
-    public function setDepts($depts)
+    public function setCid($cid)
     {
-        $this->container['depts'] = $depts;
+        $this->container['cid'] = $cid;
+
+        return $this;
+    }
+
+    /**
+     * Gets lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->container['lastname'];
+    }
+
+    /**
+     * Sets lastname
+     *
+     * @param string $lastname Last name
+     *
+     * @return $this
+     */
+    public function setLastname($lastname)
+    {
+        $this->container['lastname'] = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Gets firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->container['firstname'];
+    }
+
+    /**
+     * Sets firstname
+     *
+     * @param string $firstname First name
+     *
+     * @return $this
+     */
+    public function setFirstname($firstname)
+    {
+        $this->container['firstname'] = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Gets position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->container['position'];
+    }
+
+    /**
+     * Sets position
+     *
+     * @param string $position Position ID (XYZ_APP, ZZZ_CTR)
+     *
+     * @return $this
+     */
+    public function setPosition($position)
+    {
+        $this->container['position'] = $position;
+
+        return $this;
+    }
+
+    /**
+     * Gets expDate
+     *
+     * @return string
+     */
+    public function getExpDate()
+    {
+        return $this->container['expDate'];
+    }
+
+    /**
+     * Sets expDate
+     *
+     * @param string $expDate Expiration Date (YYYY-MM-DD)
+     *
+     * @return $this
+     */
+    public function setExpDate($expDate)
+    {
+        $this->container['expDate'] = $expDate;
 
         return $this;
     }

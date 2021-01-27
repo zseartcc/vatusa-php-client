@@ -131,9 +131,9 @@ Class | Method | HTTP request | Description
 *FacilityApi* | [**facilityIdGet**](docs/Api/FacilityApi.md#facilityidget) | **GET** /facility/{id} | Get facility information.
 *FacilityApi* | [**facilityIdPut**](docs/Api/FacilityApi.md#facilityidput) | **PUT** /facility/{id} | Update facility information. [Auth]
 *FacilityApi* | [**facilityIdRosterCidDelete**](docs/Api/FacilityApi.md#facilityidrosterciddelete) | **DELETE** /facility/{id}/roster/{cid} | Delete member from facility roster. [Auth]
-*FacilityApi* | [**facilityIdRosterGet**](docs/Api/FacilityApi.md#facilityidrosterget) | **GET** /facility/{id}/roster | Get facility roster.
 *FacilityApi* | [**facilityIdRosterManageVisitorCidDelete**](docs/Api/FacilityApi.md#facilityidrostermanagevisitorciddelete) | **DELETE** /facility/{id}/roster/manageVisitor/{cid} | Delete member from visiting roster. [Key]
 *FacilityApi* | [**facilityIdRosterManageVisitorCidPost**](docs/Api/FacilityApi.md#facilityidrostermanagevisitorcidpost) | **POST** /facility/{id}/roster/manageVisitor/{cid} | Add member to visiting roster. [Key]
+*FacilityApi* | [**facilityIdRosterMembershipGet**](docs/Api/FacilityApi.md#facilityidrostermembershipget) | **GET** /facility/{id}/roster/{membership} | Get facility roster.
 *FacilityApi* | [**facilityIdTransfersGet**](docs/Api/FacilityApi.md#facilityidtransfersget) | **GET** /facility/{id}/transfers | Get pending transfers. [Key]
 *FacilityApi* | [**facilityIdTransfersTransferIdPut**](docs/Api/FacilityApi.md#facilityidtransferstransferidput) | **PUT** /facility/{id}/transfers/{transferId} | Modify transfer request.  [Auth]
 *FacilityApi* | [**facilityIdUlsReturnsGet**](docs/Api/FacilityApi.md#facilityidulsreturnsget) | **GET** /facility/{id}/ulsReturns | Get ULS return paths. [Key]
@@ -228,10 +228,10 @@ Class | Method | HTTP request | Description
  - [InlineResponse20014](docs/Model/InlineResponse20014.md)
  - [InlineResponse20015](docs/Model/InlineResponse20015.md)
  - [InlineResponse20016](docs/Model/InlineResponse20016.md)
- - [InlineResponse20016Depts](docs/Model/InlineResponse20016Depts.md)
  - [InlineResponse20017](docs/Model/InlineResponse20017.md)
- - [InlineResponse20017Staff](docs/Model/InlineResponse20017Staff.md)
+ - [InlineResponse20017Depts](docs/Model/InlineResponse20017Depts.md)
  - [InlineResponse20018](docs/Model/InlineResponse20018.md)
+ - [InlineResponse20018Staff](docs/Model/InlineResponse20018Staff.md)
  - [InlineResponse20019](docs/Model/InlineResponse20019.md)
  - [InlineResponse2002](docs/Model/InlineResponse2002.md)
  - [InlineResponse20020](docs/Model/InlineResponse20020.md)
@@ -239,6 +239,7 @@ Class | Method | HTTP request | Description
  - [InlineResponse20022](docs/Model/InlineResponse20022.md)
  - [InlineResponse20023](docs/Model/InlineResponse20023.md)
  - [InlineResponse20024](docs/Model/InlineResponse20024.md)
+ - [InlineResponse20025](docs/Model/InlineResponse20025.md)
  - [InlineResponse2002Chapters](docs/Model/InlineResponse2002Chapters.md)
  - [InlineResponse2003](docs/Model/InlineResponse2003.md)
  - [InlineResponse2004](docs/Model/InlineResponse2004.md)

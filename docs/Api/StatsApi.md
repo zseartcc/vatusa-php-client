@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **statsExamsFacilityGet**
-> \VATUSA\Client\Model\InlineResponse20014[] statsExamsFacilityGet($facility, $month, $year)
+> \VATUSA\Client\Model\InlineResponse20016[] statsExamsFacilityGet($facility, $month, $year)
 
 Get statistics of exam results. [Key]
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20014[]**](../Model/InlineResponse20014.md)
+[**\VATUSA\Client\Model\InlineResponse20016[]**](../Model/InlineResponse20016.md)
 
 ### Authorization
 

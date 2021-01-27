@@ -62,7 +62,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         'lastname' => 'string',
         'firstname' => 'string',
         'position' => 'string',
-        'expDate' => 'string'
+        'expires' => 'string'
     ];
 
     /**
@@ -76,7 +76,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         'lastname' => null,
         'firstname' => null,
         'position' => null,
-        'expDate' => null
+        'expires' => null
     ];
 
     /**
@@ -111,7 +111,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         'lastname' => 'lastname',
         'firstname' => 'firstname',
         'position' => 'position',
-        'expDate' => 'expDate'
+        'expires' => 'expires'
     ];
 
     /**
@@ -125,7 +125,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         'lastname' => 'setLastname',
         'firstname' => 'setFirstname',
         'position' => 'setPosition',
-        'expDate' => 'setExpDate'
+        'expires' => 'setExpires'
     ];
 
     /**
@@ -139,7 +139,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         'lastname' => 'getLastname',
         'firstname' => 'getFirstname',
         'position' => 'getPosition',
-        'expDate' => 'getExpDate'
+        'expires' => 'getExpires'
     ];
 
     /**
@@ -207,7 +207,7 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
         $this->container['lastname'] = isset($data['lastname']) ? $data['lastname'] : null;
         $this->container['firstname'] = isset($data['firstname']) ? $data['firstname'] : null;
         $this->container['position'] = isset($data['position']) ? $data['position'] : null;
-        $this->container['expDate'] = isset($data['expDate']) ? $data['expDate'] : null;
+        $this->container['expires'] = isset($data['expires']) ? $data['expires'] : null;
     }
 
     /**
@@ -355,25 +355,25 @@ class InlineResponse20014 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets expDate
+     * Gets expires
      *
      * @return string
      */
-    public function getExpDate()
+    public function getExpires()
     {
-        return $this->container['expDate'];
+        return $this->container['expires'];
     }
 
     /**
-     * Sets expDate
+     * Sets expires
      *
-     * @param string $expDate Expiration Date (YYYY-MM-DD)
+     * @param string $expires Expiration Date (YYYY-MM-DD)
      *
      * @return $this
      */
-    public function setExpDate($expDate)
+    public function setExpires($expires)
     {
-        $this->container['expDate'] = $expDate;
+        $this->container['expires'] = $expires;
 
         return $this;
     }

@@ -57,14 +57,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'int',
-        'tmuFacility' => '\VATUSA\Client\Model\TmunoticesTmuFacility[]',
-        'priority' => 'string',
-        'message' => 'string',
-        'expireDate' => 'string',
-        'startDate' => 'string',
-        'isDelay' => 'bool',
-        'isPrefRoute' => 'bool'
+        'status' => 'string',
+        'survey' => '\VATUSA\Client\Model\Survey',
+        'items' => '\VATUSA\Client\Model\SurveyQuestion[]'
     ];
 
     /**
@@ -73,14 +68,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null,
-        'tmuFacility' => null,
-        'priority' => null,
-        'message' => null,
-        'expireDate' => null,
-        'startDate' => null,
-        'isDelay' => null,
-        'isPrefRoute' => null
+        'status' => null,
+        'survey' => null,
+        'items' => null
     ];
 
     /**
@@ -110,14 +100,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'tmuFacility' => 'tmu_facility',
-        'priority' => 'priority',
-        'message' => 'message',
-        'expireDate' => 'expire_date',
-        'startDate' => 'start_date',
-        'isDelay' => 'is_delay',
-        'isPrefRoute' => 'is_pref_route'
+        'status' => 'status',
+        'survey' => 'survey',
+        'items' => 'items'
     ];
 
     /**
@@ -126,14 +111,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'tmuFacility' => 'setTmuFacility',
-        'priority' => 'setPriority',
-        'message' => 'setMessage',
-        'expireDate' => 'setExpireDate',
-        'startDate' => 'setStartDate',
-        'isDelay' => 'setIsDelay',
-        'isPrefRoute' => 'setIsPrefRoute'
+        'status' => 'setStatus',
+        'survey' => 'setSurvey',
+        'items' => 'setItems'
     ];
 
     /**
@@ -142,14 +122,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'tmuFacility' => 'getTmuFacility',
-        'priority' => 'getPriority',
-        'message' => 'getMessage',
-        'expireDate' => 'getExpireDate',
-        'startDate' => 'getStartDate',
-        'isDelay' => 'getIsDelay',
-        'isPrefRoute' => 'getIsPrefRoute'
+        'status' => 'getStatus',
+        'survey' => 'getSurvey',
+        'items' => 'getItems'
     ];
 
     /**
@@ -212,14 +187,9 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['tmuFacility'] = isset($data['tmuFacility']) ? $data['tmuFacility'] : null;
-        $this->container['priority'] = isset($data['priority']) ? $data['priority'] : null;
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
-        $this->container['expireDate'] = isset($data['expireDate']) ? $data['expireDate'] : null;
-        $this->container['startDate'] = isset($data['startDate']) ? $data['startDate'] : null;
-        $this->container['isDelay'] = isset($data['isDelay']) ? $data['isDelay'] : null;
-        $this->container['isPrefRoute'] = isset($data['isPrefRoute']) ? $data['isPrefRoute'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['survey'] = isset($data['survey']) ? $data['survey'] : null;
+        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
     }
 
     /**
@@ -247,193 +217,73 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param int $id TMU Notice ID
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets tmuFacility
-     *
-     * @return \VATUSA\Client\Model\TmunoticesTmuFacility[]
-     */
-    public function getTmuFacility()
-    {
-        return $this->container['tmuFacility'];
-    }
-
-    /**
-     * Sets tmuFacility
-     *
-     * @param \VATUSA\Client\Model\TmunoticesTmuFacility[] $tmuFacility tmuFacility
-     *
-     * @return $this
-     */
-    public function setTmuFacility($tmuFacility)
-    {
-        $this->container['tmuFacility'] = $tmuFacility;
-
-        return $this;
-    }
-
-    /**
-     * Gets priority
+     * Gets status
      *
      * @return string
      */
-    public function getPriority()
+    public function getStatus()
     {
-        return $this->container['priority'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets priority
+     * Sets status
      *
-     * @param string $priority Priority of notice     (0:Low,1:Standard,2:Urgent)
+     * @param string $status status
      *
      * @return $this
      */
-    public function setPriority($priority)
+    public function setStatus($status)
     {
-        $this->container['priority'] = $priority;
+        $this->container['status'] = $status;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets survey
      *
-     * @return string
+     * @return \VATUSA\Client\Model\Survey
      */
-    public function getMessage()
+    public function getSurvey()
     {
-        return $this->container['message'];
+        return $this->container['survey'];
     }
 
     /**
-     * Sets message
+     * Sets survey
      *
-     * @param string $message Notice content
+     * @param \VATUSA\Client\Model\Survey $survey survey
      *
      * @return $this
      */
-    public function setMessage($message)
+    public function setSurvey($survey)
     {
-        $this->container['message'] = $message;
+        $this->container['survey'] = $survey;
 
         return $this;
     }
 
     /**
-     * Gets expireDate
+     * Gets items
      *
-     * @return string
+     * @return \VATUSA\Client\Model\SurveyQuestion[]
      */
-    public function getExpireDate()
+    public function getItems()
     {
-        return $this->container['expireDate'];
+        return $this->container['items'];
     }
 
     /**
-     * Sets expireDate
+     * Sets items
      *
-     * @param string $expireDate Expiration time in Zulu     (YYYY-MM-DD H:i:s)
+     * @param \VATUSA\Client\Model\SurveyQuestion[] $items items
      *
      * @return $this
      */
-    public function setExpireDate($expireDate)
+    public function setItems($items)
     {
-        $this->container['expireDate'] = $expireDate;
-
-        return $this;
-    }
-
-    /**
-     * Gets startDate
-     *
-     * @return string
-     */
-    public function getStartDate()
-    {
-        return $this->container['startDate'];
-    }
-
-    /**
-     * Sets startDate
-     *
-     * @param string $startDate Start time in Zulu (YYYY-MM-DD     H:i:s)
-     *
-     * @return $this
-     */
-    public function setStartDate($startDate)
-    {
-        $this->container['startDate'] = $startDate;
-
-        return $this;
-    }
-
-    /**
-     * Gets isDelay
-     *
-     * @return bool
-     */
-    public function getIsDelay()
-    {
-        return $this->container['isDelay'];
-    }
-
-    /**
-     * Sets isDelay
-     *
-     * @param bool $isDelay TMU Notice is a ground stop or delay
-     *
-     * @return $this
-     */
-    public function setIsDelay($isDelay)
-    {
-        $this->container['isDelay'] = $isDelay;
-
-        return $this;
-    }
-
-    /**
-     * Gets isPrefRoute
-     *
-     * @return bool
-     */
-    public function getIsPrefRoute()
-    {
-        return $this->container['isPrefRoute'];
-    }
-
-    /**
-     * Sets isPrefRoute
-     *
-     * @param bool $isPrefRoute TMU Notice is a preferred routing
-     *
-     * @return $this
-     */
-    public function setIsPrefRoute($isPrefRoute)
-    {
-        $this->container['isPrefRoute'] = $isPrefRoute;
+        $this->container['items'] = $items;
 
         return $this;
     }

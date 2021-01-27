@@ -3225,7 +3225,7 @@ class CbtApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20024[]
+     * @return \VATUSA\Client\Model\InlineResponse20025[]
      */
     public function userCidCbtProgressBlockIdGet($cid, $blockId)
     {
@@ -3243,11 +3243,11 @@ class CbtApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20024[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20025[], HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidCbtProgressBlockIdGetWithHttpInfo($cid, $blockId)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidCbtProgressBlockIdGetRequest($cid, $blockId);
 
         try {
@@ -3299,7 +3299,7 @@ class CbtApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20024[]',
+                        '\VATUSA\Client\Model\InlineResponse20025[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3351,7 +3351,7 @@ class CbtApi
      */
     public function userCidCbtProgressBlockIdGetAsyncWithHttpInfo($cid, $blockId)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidCbtProgressBlockIdGetRequest($cid, $blockId);
 
         return $this->client

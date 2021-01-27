@@ -57,10 +57,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'chapterId' => 'int',
-        'chapterName' => 'string',
-        'completed' => 'bool',
-        'date' => 'string'
+        'item' => 'string',
+        'result' => 'string'
     ];
 
     /**
@@ -69,10 +67,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'chapterId' => null,
-        'chapterName' => null,
-        'completed' => null,
-        'date' => null
+        'item' => null,
+        'result' => null
     ];
 
     /**
@@ -102,10 +98,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'chapterId' => 'chapterId',
-        'chapterName' => 'chapterName',
-        'completed' => 'completed',
-        'date' => 'date'
+        'item' => 'item',
+        'result' => 'result'
     ];
 
     /**
@@ -114,10 +108,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'chapterId' => 'setChapterId',
-        'chapterName' => 'setChapterName',
-        'completed' => 'setCompleted',
-        'date' => 'setDate'
+        'item' => 'setItem',
+        'result' => 'setResult'
     ];
 
     /**
@@ -126,10 +118,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'chapterId' => 'getChapterId',
-        'chapterName' => 'getChapterName',
-        'completed' => 'getCompleted',
-        'date' => 'getDate'
+        'item' => 'getItem',
+        'result' => 'getResult'
     ];
 
     /**
@@ -192,10 +182,8 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['chapterId'] = isset($data['chapterId']) ? $data['chapterId'] : null;
-        $this->container['chapterName'] = isset($data['chapterName']) ? $data['chapterName'] : null;
-        $this->container['completed'] = isset($data['completed']) ? $data['completed'] : null;
-        $this->container['date'] = isset($data['date']) ? $data['date'] : null;
+        $this->container['item'] = isset($data['item']) ? $data['item'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
     }
 
     /**
@@ -223,97 +211,49 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets chapterId
-     *
-     * @return int
-     */
-    public function getChapterId()
-    {
-        return $this->container['chapterId'];
-    }
-
-    /**
-     * Sets chapterId
-     *
-     * @param int $chapterId chapterId
-     *
-     * @return $this
-     */
-    public function setChapterId($chapterId)
-    {
-        $this->container['chapterId'] = $chapterId;
-
-        return $this;
-    }
-
-    /**
-     * Gets chapterName
+     * Gets item
      *
      * @return string
      */
-    public function getChapterName()
+    public function getItem()
     {
-        return $this->container['chapterName'];
+        return $this->container['item'];
     }
 
     /**
-     * Sets chapterName
+     * Sets item
      *
-     * @param string $chapterName chapterName
+     * @param string $item Checklist checked item
      *
      * @return $this
      */
-    public function setChapterName($chapterName)
+    public function setItem($item)
     {
-        $this->container['chapterName'] = $chapterName;
+        $this->container['item'] = $item;
 
         return $this;
     }
 
     /**
-     * Gets completed
-     *
-     * @return bool
-     */
-    public function getCompleted()
-    {
-        return $this->container['completed'];
-    }
-
-    /**
-     * Sets completed
-     *
-     * @param bool $completed completed
-     *
-     * @return $this
-     */
-    public function setCompleted($completed)
-    {
-        $this->container['completed'] = $completed;
-
-        return $this;
-    }
-
-    /**
-     * Gets date
+     * Gets result
      *
      * @return string
      */
-    public function getDate()
+    public function getResult()
     {
-        return $this->container['date'];
+        return $this->container['result'];
     }
 
     /**
-     * Sets date
+     * Sets result
      *
-     * @param string $date Null if not completed, otherwise date      *                                                completed
+     * @param string $result Result of check (OK, FAIL)
      *
      * @return $this
      */
-    public function setDate($date)
+    public function setResult($result)
     {
-        $this->container['date'] = $date;
+        $this->container['result'] = $result;
 
         return $this;
     }

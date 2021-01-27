@@ -11,9 +11,9 @@ Method | HTTP request | Description
 [**facilityIdGet**](FacilityApi.md#facilityIdGet) | **GET** /facility/{id} | Get facility information.
 [**facilityIdPut**](FacilityApi.md#facilityIdPut) | **PUT** /facility/{id} | Update facility information. [Auth]
 [**facilityIdRosterCidDelete**](FacilityApi.md#facilityIdRosterCidDelete) | **DELETE** /facility/{id}/roster/{cid} | Delete member from facility roster. [Auth]
-[**facilityIdRosterGet**](FacilityApi.md#facilityIdRosterGet) | **GET** /facility/{id}/roster | Get facility roster.
 [**facilityIdRosterManageVisitorCidDelete**](FacilityApi.md#facilityIdRosterManageVisitorCidDelete) | **DELETE** /facility/{id}/roster/manageVisitor/{cid} | Delete member from visiting roster. [Key]
 [**facilityIdRosterManageVisitorCidPost**](FacilityApi.md#facilityIdRosterManageVisitorCidPost) | **POST** /facility/{id}/roster/manageVisitor/{cid} | Add member to visiting roster. [Key]
+[**facilityIdRosterMembershipGet**](FacilityApi.md#facilityIdRosterMembershipGet) | **GET** /facility/{id}/roster/{membership} | Get facility roster.
 [**facilityIdTransfersGet**](FacilityApi.md#facilityIdTransfersGet) | **GET** /facility/{id}/transfers | Get pending transfers. [Key]
 [**facilityIdTransfersTransferIdPut**](FacilityApi.md#facilityIdTransfersTransferIdPut) | **PUT** /facility/{id}/transfers/{transferId} | Modify transfer request.  [Auth]
 [**facilityIdUlsReturnsGet**](FacilityApi.md#facilityIdUlsReturnsGet) | **GET** /facility/{id}/ulsReturns | Get ULS return paths. [Key]
@@ -435,61 +435,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **facilityIdRosterGet**
-> \VATUSA\Client\Model\User[] facilityIdRosterGet($id)
-
-Get facility roster.
-
-Get facility staff. Email field requires authentication as senior staff.     Broadcast opt-in status requires API key or staff member authentication. Prevent Staff Assignment field requires     authentication as senior staff.
-
-### Example
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: apikey
-$config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKey('apikey', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('apikey', 'Bearer');
-
-$apiInstance = new VATUSA\Client\Api\FacilityApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$id = "id_example"; // string | Facility IATA ID
-
-try {
-    $result = $apiInstance->facilityIdRosterGet($id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling FacilityApi->facilityIdRosterGet: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **string**| Facility IATA ID |
-
-### Return type
-
-[**\VATUSA\Client\Model\User[]**](../Model/User.md)
-
-### Authorization
-
-[apikey](../../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **facilityIdRosterManageVisitorCidDelete**
 > \VATUSA\Client\Model\OK facilityIdRosterManageVisitorCidDelete($id, $cid, $reason)
 
@@ -622,6 +567,63 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **facilityIdRosterMembershipGet**
+> \VATUSA\Client\Model\User[] facilityIdRosterMembershipGet($id, $membership)
+
+Get facility roster.
+
+Get facility staff. Email field requires authentication as senior staff.     Broadcast opt-in status requires API key or staff member authentication. Prevent Staff Assignment field requires     authentication as senior staff.
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: apikey
+$config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKey('apikey', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('apikey', 'Bearer');
+
+$apiInstance = new VATUSA\Client\Api\FacilityApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = "id_example"; // string | Facility IATA ID
+$membership = "membership_example"; // string | Membership type (home, visit, both)
+
+try {
+    $result = $apiInstance->facilityIdRosterMembershipGet($id, $membership);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FacilityApi->facilityIdRosterMembershipGet: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string**| Facility IATA ID |
+ **membership** | **string**| Membership type (home, visit, both) |
+
+### Return type
+
+[**\VATUSA\Client\Model\User[]**](../Model/User.md)
+
+### Authorization
+
+[apikey](../../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

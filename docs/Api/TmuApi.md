@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticeIdGet**
-> \VATUSA\Client\Model\InlineResponse20020[] tmuNoticeIdGet($id)
+> \VATUSA\Client\Model\InlineResponse20021[] tmuNoticeIdGet($id)
 
 Get TMU Notice info.
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20020[]**](../Model/InlineResponse20020.md)
+[**\VATUSA\Client\Model\InlineResponse20021[]**](../Model/InlineResponse20021.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticesGet**
-> \VATUSA\Client\Model\InlineResponse20019[] tmuNoticesGet($facility, $children, $onlyactive)
+> \VATUSA\Client\Model\InlineResponse20020[] tmuNoticesGet($facility, $children, $onlyactive)
 
 Get list of TMU Notices.
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20019[]**](../Model/InlineResponse20019.md)
+[**\VATUSA\Client\Model\InlineResponse20020[]**](../Model/InlineResponse20020.md)
 
 ### Authorization
 

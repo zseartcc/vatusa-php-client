@@ -1348,7 +1348,7 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20024[]
+     * @return \VATUSA\Client\Model\InlineResponse20025[]
      */
     public function userCidCbtProgressBlockIdGet($cid, $blockId)
     {
@@ -1366,11 +1366,11 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20024[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20025[], HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidCbtProgressBlockIdGetWithHttpInfo($cid, $blockId)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidCbtProgressBlockIdGetRequest($cid, $blockId);
 
         try {
@@ -1422,7 +1422,7 @@ class UserApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20024[]',
+                        '\VATUSA\Client\Model\InlineResponse20025[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1474,7 +1474,7 @@ class UserApi
      */
     public function userCidCbtProgressBlockIdGetAsyncWithHttpInfo($cid, $blockId)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidCbtProgressBlockIdGetRequest($cid, $blockId);
 
         return $this->client
@@ -5089,7 +5089,7 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20023[]
+     * @return \VATUSA\Client\Model\InlineResponse20024[]
      */
     public function userCidTransferChecklistGet($cid)
     {
@@ -5106,11 +5106,11 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20023[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20024[], HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidTransferChecklistGetWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20023[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
         $request = $this->userCidTransferChecklistGetRequest($cid);
 
         try {
@@ -5162,7 +5162,7 @@ class UserApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20023[]',
+                        '\VATUSA\Client\Model\InlineResponse20024[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5220,7 +5220,7 @@ class UserApi
      */
     public function userCidTransferChecklistGetAsyncWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20023[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
         $request = $this->userCidTransferChecklistGetRequest($cid);
 
         return $this->client
@@ -6041,7 +6041,7 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20022[]
+     * @return \VATUSA\Client\Model\InlineResponse20023[]
      */
     public function userRolesFacilityRoleGet($facility, $role)
     {
@@ -6059,11 +6059,11 @@ class UserApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20022[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20023[], HTTP status code, HTTP response headers (array of strings)
      */
     public function userRolesFacilityRoleGetWithHttpInfo($facility, $role)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20022[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20023[]';
         $request = $this->userRolesFacilityRoleGetRequest($facility, $role);
 
         try {
@@ -6115,7 +6115,7 @@ class UserApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20022[]',
+                        '\VATUSA\Client\Model\InlineResponse20023[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6159,7 +6159,7 @@ class UserApi
      */
     public function userRolesFacilityRoleGetAsyncWithHttpInfo($facility, $role)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20022[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20023[]';
         $request = $this->userRolesFacilityRoleGetRequest($facility, $role);
 
         return $this->client

@@ -98,7 +98,7 @@ class StatsApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20014[]
+     * @return \VATUSA\Client\Model\InlineResponse20016[]
      */
     public function statsExamsFacilityGet($facility, $month = null, $year = null)
     {
@@ -117,11 +117,11 @@ class StatsApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20014[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20016[], HTTP status code, HTTP response headers (array of strings)
      */
     public function statsExamsFacilityGetWithHttpInfo($facility, $month = null, $year = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20014[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20016[]';
         $request = $this->statsExamsFacilityGetRequest($facility, $month, $year);
 
         try {
@@ -173,7 +173,7 @@ class StatsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20014[]',
+                        '\VATUSA\Client\Model\InlineResponse20016[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -227,7 +227,7 @@ class StatsApi
      */
     public function statsExamsFacilityGetAsyncWithHttpInfo($facility, $month = null, $year = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20014[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20016[]';
         $request = $this->statsExamsFacilityGetRequest($facility, $month, $year);
 
         return $this->client

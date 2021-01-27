@@ -398,7 +398,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **trainingRecordRecordIDPut**
-> \VATUSA\Client\Model\InlineResponse20021 trainingRecordRecordIDPut($recordID, $body)
+> \VATUSA\Client\Model\InlineResponse20022 trainingRecordRecordIDPut($recordID, $body)
 
 Edit training record. [Key]
 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20021**](../Model/InlineResponse20021.md)
+[**\VATUSA\Client\Model\InlineResponse20022**](../Model/InlineResponse20022.md)
 
 ### Authorization
 
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidTrainingRecordPost**
-> \VATUSA\Client\Model\InlineResponse20021 userCidTrainingRecordPost($cid, $body)
+> \VATUSA\Client\Model\InlineResponse20022 userCidTrainingRecordPost($cid, $body)
 
 Submit new training record. [Key]
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20021**](../Model/InlineResponse20021.md)
+[**\VATUSA\Client\Model\InlineResponse20022**](../Model/InlineResponse20022.md)
 
 ### Authorization
 

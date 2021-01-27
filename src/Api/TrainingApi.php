@@ -1808,7 +1808,7 @@ class TrainingApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20021
+     * @return \VATUSA\Client\Model\InlineResponse20022
      */
     public function trainingRecordRecordIDPut($recordID, $body)
     {
@@ -1826,11 +1826,11 @@ class TrainingApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20021, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20022, HTTP status code, HTTP response headers (array of strings)
      */
     public function trainingRecordRecordIDPutWithHttpInfo($recordID, $body)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022';
         $request = $this->trainingRecordRecordIDPutRequest($recordID, $body);
 
         try {
@@ -1882,7 +1882,7 @@ class TrainingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20021',
+                        '\VATUSA\Client\Model\InlineResponse20022',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1950,7 +1950,7 @@ class TrainingApi
      */
     public function trainingRecordRecordIDPutAsyncWithHttpInfo($recordID, $body)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022';
         $request = $this->trainingRecordRecordIDPutRequest($recordID, $body);
 
         return $this->client
@@ -3005,7 +3005,7 @@ class TrainingApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20021
+     * @return \VATUSA\Client\Model\InlineResponse20022
      */
     public function userCidTrainingRecordPost($cid, $body)
     {
@@ -3023,11 +3023,11 @@ class TrainingApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20021, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20022, HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidTrainingRecordPostWithHttpInfo($cid, $body)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022';
         $request = $this->userCidTrainingRecordPostRequest($cid, $body);
 
         try {
@@ -3079,7 +3079,7 @@ class TrainingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20021',
+                        '\VATUSA\Client\Model\InlineResponse20022',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3147,7 +3147,7 @@ class TrainingApi
      */
     public function userCidTrainingRecordPostAsyncWithHttpInfo($cid, $body)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022';
         $request = $this->userCidTrainingRecordPostRequest($cid, $body);
 
         return $this->client

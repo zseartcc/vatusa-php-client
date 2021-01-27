@@ -394,7 +394,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20020[]
+     * @return \VATUSA\Client\Model\InlineResponse20021[]
      */
     public function tmuNoticeIdGet($id)
     {
@@ -411,11 +411,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20020[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20021[], HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticeIdGetWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
         $request = $this->tmuNoticeIdGetRequest($id);
 
         try {
@@ -467,7 +467,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20020[]',
+                        '\VATUSA\Client\Model\InlineResponse20021[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -509,7 +509,7 @@ class TmuApi
      */
     public function tmuNoticeIdGetAsyncWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
         $request = $this->tmuNoticeIdGetRequest($id);
 
         return $this->client
@@ -1034,7 +1034,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20019[]
+     * @return \VATUSA\Client\Model\InlineResponse20020[]
      */
     public function tmuNoticesGet($facility = null, $children = null, $onlyactive = null)
     {
@@ -1053,11 +1053,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20019[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20020[], HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticesGetWithHttpInfo($facility = null, $children = null, $onlyactive = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20019[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
         $request = $this->tmuNoticesGetRequest($facility, $children, $onlyactive);
 
         try {
@@ -1109,7 +1109,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20019[]',
+                        '\VATUSA\Client\Model\InlineResponse20020[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1155,7 +1155,7 @@ class TmuApi
      */
     public function tmuNoticesGetAsyncWithHttpInfo($facility = null, $children = null, $onlyactive = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20019[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
         $request = $this->tmuNoticesGetRequest($facility, $children, $onlyactive);
 
         return $this->client

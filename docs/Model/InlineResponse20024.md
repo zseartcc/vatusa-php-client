@@ -3,10 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chapterId** | **int** |  | [optional] 
-**chapterName** | **string** |  | [optional] 
-**completed** | **bool** |  | [optional] 
-**date** | **string** | Null if not completed, otherwise date      *                                                completed | [optional] 
+**item** | **string** | Checklist checked item | [optional] 
+**result** | **string** | Result of check (OK, FAIL) | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

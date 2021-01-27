@@ -307,7 +307,7 @@ class InlineResponse20020 implements ModelInterface, ArrayAccess
     /**
      * Sets priority
      *
-     * @param string $priority Priority of notice                                                                       (0:Low,1:Standard,2:Urgent)
+     * @param string $priority Priority of notice     (0:Low,1:Standard,2:Urgent)
      *
      * @return $this
      */
@@ -355,7 +355,7 @@ class InlineResponse20020 implements ModelInterface, ArrayAccess
     /**
      * Sets expireDate
      *
-     * @param string $expireDate Expiration time in Zulu (YYYY-MM-DD H:i:s)
+     * @param string $expireDate Expiration time in Zulu     (YYYY-MM-DD H:i:s)
      *
      * @return $this
      */
@@ -379,7 +379,7 @@ class InlineResponse20020 implements ModelInterface, ArrayAccess
     /**
      * Sets startDate
      *
-     * @param string $startDate Start time in Zulu (YYYY-MM-DD H:i:s)
+     * @param string $startDate Start time in Zulu (YYYY-MM-DD     H:i:s)
      *
      * @return $this
      */
@@ -403,7 +403,7 @@ class InlineResponse20020 implements ModelInterface, ArrayAccess
     /**
      * Sets isDelay
      *
-     * @param bool $isDelay TMU Notice is a ground stop or delay.
+     * @param bool $isDelay TMU Notice is a ground stop or delay
      *
      * @return $this
      */
