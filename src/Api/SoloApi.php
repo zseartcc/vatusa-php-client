@@ -92,17 +92,15 @@ class SoloApi
      *
      * Delete solo certification. [Key]
      *
-     * @param  int $cid Vatsim ID (required)
-     * @param  string $position Position ID (XYZ_APP,     ZZZ_CTR) (required)
-     * @param  int $id Endorsement ID. Use this      *                           OR both CID and Position. (optional)
+     * @param  \VATUSA\Client\Model\DeleteSoloRequest $deleteSoloRequest deleteSoloRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \VATUSA\Client\Model\OK
      */
-    public function soloDelete($cid, $position, $id = null)
+    public function soloDelete($deleteSoloRequest)
     {
-        list($response) = $this->soloDeleteWithHttpInfo($cid, $position, $id);
+        list($response) = $this->soloDeleteWithHttpInfo($deleteSoloRequest);
         return $response;
     }
 
@@ -111,18 +109,16 @@ class SoloApi
      *
      * Delete solo certification. [Key]
      *
-     * @param  int $cid Vatsim ID (required)
-     * @param  string $position Position ID (XYZ_APP,     ZZZ_CTR) (required)
-     * @param  int $id Endorsement ID. Use this      *                           OR both CID and Position. (optional)
+     * @param  \VATUSA\Client\Model\DeleteSoloRequest $deleteSoloRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \VATUSA\Client\Model\OK, HTTP status code, HTTP response headers (array of strings)
      */
-    public function soloDeleteWithHttpInfo($cid, $position, $id = null)
+    public function soloDeleteWithHttpInfo($deleteSoloRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->soloDeleteRequest($cid, $position, $id);
+        $request = $this->soloDeleteRequest($deleteSoloRequest);
 
         try {
             $options = $this->createHttpClientOption();
@@ -204,16 +200,14 @@ class SoloApi
      *
      * Delete solo certification. [Key]
      *
-     * @param  int $cid Vatsim ID (required)
-     * @param  string $position Position ID (XYZ_APP,     ZZZ_CTR) (required)
-     * @param  int $id Endorsement ID. Use this      *                           OR both CID and Position. (optional)
+     * @param  \VATUSA\Client\Model\DeleteSoloRequest $deleteSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function soloDeleteAsync($cid, $position, $id = null)
+    public function soloDeleteAsync($deleteSoloRequest)
     {
-        return $this->soloDeleteAsyncWithHttpInfo($cid, $position, $id)
+        return $this->soloDeleteAsyncWithHttpInfo($deleteSoloRequest)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -226,17 +220,15 @@ class SoloApi
      *
      * Delete solo certification. [Key]
      *
-     * @param  int $cid Vatsim ID (required)
-     * @param  string $position Position ID (XYZ_APP,     ZZZ_CTR) (required)
-     * @param  int $id Endorsement ID. Use this      *                           OR both CID and Position. (optional)
+     * @param  \VATUSA\Client\Model\DeleteSoloRequest $deleteSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function soloDeleteAsyncWithHttpInfo($cid, $position, $id = null)
+    public function soloDeleteAsyncWithHttpInfo($deleteSoloRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->soloDeleteRequest($cid, $position, $id);
+        $request = $this->soloDeleteRequest($deleteSoloRequest);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -278,25 +270,17 @@ class SoloApi
     /**
      * Create request for operation 'soloDelete'
      *
-     * @param  int $cid Vatsim ID (required)
-     * @param  string $position Position ID (XYZ_APP,     ZZZ_CTR) (required)
-     * @param  int $id Endorsement ID. Use this      *                           OR both CID and Position. (optional)
+     * @param  \VATUSA\Client\Model\DeleteSoloRequest $deleteSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function soloDeleteRequest($cid, $position, $id = null)
+    protected function soloDeleteRequest($deleteSoloRequest)
     {
-        // verify the required parameter 'cid' is set
-        if ($cid === null || (is_array($cid) && count($cid) === 0)) {
+        // verify the required parameter 'deleteSoloRequest' is set
+        if ($deleteSoloRequest === null || (is_array($deleteSoloRequest) && count($deleteSoloRequest) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $cid when calling soloDelete'
-            );
-        }
-        // verify the required parameter 'position' is set
-        if ($position === null || (is_array($position) && count($position) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $position when calling soloDelete'
+                'Missing the required parameter $deleteSoloRequest when calling soloDelete'
             );
         }
 
@@ -309,20 +293,11 @@ class SoloApi
 
 
 
-        // form params
-        if ($id !== null) {
-            $formParams['id'] = ObjectSerializer::toFormValue($id);
-        }
-        // form params
-        if ($cid !== null) {
-            $formParams['cid'] = ObjectSerializer::toFormValue($cid);
-        }
-        // form params
-        if ($position !== null) {
-            $formParams['position'] = ObjectSerializer::toFormValue($position);
-        }
         // body params
         $_tempBody = null;
+        if (isset($deleteSoloRequest)) {
+            $_tempBody = $deleteSoloRequest;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -331,7 +306,7 @@ class SoloApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['multipart/form-data']
+                ['application/json']
             );
         }
 
@@ -669,17 +644,15 @@ class SoloApi
      *
      * Submit new solo certification. [Key]
      *
-     * @param  int $cid CERT ID (required)
-     * @param  string $position Position ID     (XYZ_APP, ZZZ_CTR) (required)
-     * @param  string $expDate Date of expiration     (YYYY-MM-DD) (required)
+     * @param  \VATUSA\Client\Model\NewSoloRequest $newSoloRequest newSoloRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \VATUSA\Client\Model\InlineResponse20015
      */
-    public function soloPost($cid, $position, $expDate)
+    public function soloPost($newSoloRequest)
     {
-        list($response) = $this->soloPostWithHttpInfo($cid, $position, $expDate);
+        list($response) = $this->soloPostWithHttpInfo($newSoloRequest);
         return $response;
     }
 
@@ -688,18 +661,16 @@ class SoloApi
      *
      * Submit new solo certification. [Key]
      *
-     * @param  int $cid CERT ID (required)
-     * @param  string $position Position ID     (XYZ_APP, ZZZ_CTR) (required)
-     * @param  string $expDate Date of expiration     (YYYY-MM-DD) (required)
+     * @param  \VATUSA\Client\Model\NewSoloRequest $newSoloRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \VATUSA\Client\Model\InlineResponse20015, HTTP status code, HTTP response headers (array of strings)
      */
-    public function soloPostWithHttpInfo($cid, $position, $expDate)
+    public function soloPostWithHttpInfo($newSoloRequest)
     {
         $returnType = '\VATUSA\Client\Model\InlineResponse20015';
-        $request = $this->soloPostRequest($cid, $position, $expDate);
+        $request = $this->soloPostRequest($newSoloRequest);
 
         try {
             $options = $this->createHttpClientOption();
@@ -789,16 +760,14 @@ class SoloApi
      *
      * Submit new solo certification. [Key]
      *
-     * @param  int $cid CERT ID (required)
-     * @param  string $position Position ID     (XYZ_APP, ZZZ_CTR) (required)
-     * @param  string $expDate Date of expiration     (YYYY-MM-DD) (required)
+     * @param  \VATUSA\Client\Model\NewSoloRequest $newSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function soloPostAsync($cid, $position, $expDate)
+    public function soloPostAsync($newSoloRequest)
     {
-        return $this->soloPostAsyncWithHttpInfo($cid, $position, $expDate)
+        return $this->soloPostAsyncWithHttpInfo($newSoloRequest)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -811,17 +780,15 @@ class SoloApi
      *
      * Submit new solo certification. [Key]
      *
-     * @param  int $cid CERT ID (required)
-     * @param  string $position Position ID     (XYZ_APP, ZZZ_CTR) (required)
-     * @param  string $expDate Date of expiration     (YYYY-MM-DD) (required)
+     * @param  \VATUSA\Client\Model\NewSoloRequest $newSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function soloPostAsyncWithHttpInfo($cid, $position, $expDate)
+    public function soloPostAsyncWithHttpInfo($newSoloRequest)
     {
         $returnType = '\VATUSA\Client\Model\InlineResponse20015';
-        $request = $this->soloPostRequest($cid, $position, $expDate);
+        $request = $this->soloPostRequest($newSoloRequest);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -863,31 +830,17 @@ class SoloApi
     /**
      * Create request for operation 'soloPost'
      *
-     * @param  int $cid CERT ID (required)
-     * @param  string $position Position ID     (XYZ_APP, ZZZ_CTR) (required)
-     * @param  string $expDate Date of expiration     (YYYY-MM-DD) (required)
+     * @param  \VATUSA\Client\Model\NewSoloRequest $newSoloRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function soloPostRequest($cid, $position, $expDate)
+    protected function soloPostRequest($newSoloRequest)
     {
-        // verify the required parameter 'cid' is set
-        if ($cid === null || (is_array($cid) && count($cid) === 0)) {
+        // verify the required parameter 'newSoloRequest' is set
+        if ($newSoloRequest === null || (is_array($newSoloRequest) && count($newSoloRequest) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $cid when calling soloPost'
-            );
-        }
-        // verify the required parameter 'position' is set
-        if ($position === null || (is_array($position) && count($position) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $position when calling soloPost'
-            );
-        }
-        // verify the required parameter 'expDate' is set
-        if ($expDate === null || (is_array($expDate) && count($expDate) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $expDate when calling soloPost'
+                'Missing the required parameter $newSoloRequest when calling soloPost'
             );
         }
 
@@ -900,20 +853,11 @@ class SoloApi
 
 
 
-        // form params
-        if ($cid !== null) {
-            $formParams['cid'] = ObjectSerializer::toFormValue($cid);
-        }
-        // form params
-        if ($position !== null) {
-            $formParams['position'] = ObjectSerializer::toFormValue($position);
-        }
-        // form params
-        if ($expDate !== null) {
-            $formParams['expDate'] = ObjectSerializer::toFormValue($expDate);
-        }
         // body params
         $_tempBody = null;
+        if (isset($newSoloRequest)) {
+            $_tempBody = $newSoloRequest;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -922,7 +866,7 @@ class SoloApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['multipart/form-data']
+                ['application/json']
             );
         }
 

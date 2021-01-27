@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **soloDelete**
-> \VATUSA\Client\Model\OK soloDelete($cid, $position, $id)
+> \VATUSA\Client\Model\OK soloDelete($deleteSoloRequest)
 
 Delete solo certification. [Key]
 
@@ -42,12 +42,10 @@ $apiInstance = new VATUSA\Client\Api\SoloApi(
     new GuzzleHttp\Client(),
     $config
 );
-$cid = 56; // int | Vatsim ID
-$position = "position_example"; // string | Position ID (XYZ_APP,     ZZZ_CTR)
-$id = 56; // int | Endorsement ID. Use this      *                           OR both CID and Position.
+$deleteSoloRequest = new \VATUSA\Client\Model\DeleteSoloRequest(); // \VATUSA\Client\Model\DeleteSoloRequest | 
 
 try {
-    $result = $apiInstance->soloDelete($cid, $position, $id);
+    $result = $apiInstance->soloDelete($deleteSoloRequest);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SoloApi->soloDelete: ', $e->getMessage(), PHP_EOL;
@@ -59,9 +57,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cid** | **int**| Vatsim ID |
- **position** | **string**| Position ID (XYZ_APP,     ZZZ_CTR) |
- **id** | **int**| Endorsement ID. Use this      *                           OR both CID and Position. | [optional]
+ **deleteSoloRequest** | [**\VATUSA\Client\Model\DeleteSoloRequest**](../Model/DeleteSoloRequest.md)|  |
 
 ### Return type
 
@@ -73,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -128,7 +124,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **soloPost**
-> \VATUSA\Client\Model\InlineResponse20015 soloPost($cid, $position, $expDate)
+> \VATUSA\Client\Model\InlineResponse20015 soloPost($newSoloRequest)
 
 Submit new solo certification. [Key]
 
@@ -160,12 +156,10 @@ $apiInstance = new VATUSA\Client\Api\SoloApi(
     new GuzzleHttp\Client(),
     $config
 );
-$cid = 56; // int | CERT ID
-$position = "position_example"; // string | Position ID     (XYZ_APP, ZZZ_CTR)
-$expDate = "expDate_example"; // string | Date of expiration     (YYYY-MM-DD)
+$newSoloRequest = new \VATUSA\Client\Model\NewSoloRequest(); // \VATUSA\Client\Model\NewSoloRequest | 
 
 try {
-    $result = $apiInstance->soloPost($cid, $position, $expDate);
+    $result = $apiInstance->soloPost($newSoloRequest);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SoloApi->soloPost: ', $e->getMessage(), PHP_EOL;
@@ -177,9 +171,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cid** | **int**| CERT ID |
- **position** | **string**| Position ID     (XYZ_APP, ZZZ_CTR) |
- **expDate** | **string**| Date of expiration     (YYYY-MM-DD) |
+ **newSoloRequest** | [**\VATUSA\Client\Model\NewSoloRequest**](../Model/NewSoloRequest.md)|  |
 
 ### Return type
 
@@ -191,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

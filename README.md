@@ -207,6 +207,8 @@ Class | Method | HTTP request | Description
 
  - [Action](docs/Model/Action.md)
  - [Bucket](docs/Model/Bucket.md)
+ - [DeleteMemberRequest](docs/Model/DeleteMemberRequest.md)
+ - [DeleteSoloRequest](docs/Model/DeleteSoloRequest.md)
  - [EmailAccounts](docs/Model/EmailAccounts.md)
  - [EmailTemplate](docs/Model/EmailTemplate.md)
  - [Error](docs/Model/Error.md)
@@ -248,6 +250,7 @@ Class | Method | HTTP request | Description
  - [InlineResponse2009](docs/Model/InlineResponse2009.md)
  - [KnowledgebaseCategories](docs/Model/KnowledgebaseCategories.md)
  - [KnowledgebaseQuestions](docs/Model/KnowledgebaseQuestions.md)
+ - [NewSoloRequest](docs/Model/NewSoloRequest.md)
  - [OK](docs/Model/OK.md)
  - [OKID](docs/Model/OKID.md)
  - [Otseval](docs/Model/Otseval.md)

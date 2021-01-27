@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdRosterCidDelete**
-> \VATUSA\Client\Model\OK facilityIdRosterCidDelete($id, $cid, $reason)
+> \VATUSA\Client\Model\OK facilityIdRosterCidDelete($id, $cid, $deleteMemberRequest)
 
 Delete member from facility roster. [Auth]
 
@@ -378,6 +378,10 @@ Delete member from facility roster.  JWT or Session Cookie required (required ro
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure API key authorization: apikey
+$config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKey('apikey', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('apikey', 'Bearer');
 // Configure HTTP basic authorization: jwt
 $config = VATUSA\Client\Configuration::getDefaultConfiguration()
               ->setUsername('YOUR_USERNAME')
@@ -397,10 +401,10 @@ $apiInstance = new VATUSA\Client\Api\FacilityApi(
 );
 $id = "id_example"; // string | Facility IATA ID
 $cid = 56; // int | CID of controller
-$reason = "reason_example"; // string | Reason for deletion
+$deleteMemberRequest = new \VATUSA\Client\Model\DeleteMemberRequest(); // \VATUSA\Client\Model\DeleteMemberRequest | 
 
 try {
-    $result = $apiInstance->facilityIdRosterCidDelete($id, $cid, $reason);
+    $result = $apiInstance->facilityIdRosterCidDelete($id, $cid, $deleteMemberRequest);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling FacilityApi->facilityIdRosterCidDelete: ', $e->getMessage(), PHP_EOL;
@@ -414,7 +418,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Facility IATA ID |
  **cid** | **int**| CID of controller |
- **reason** | **string**| Reason for deletion |
+ **deleteMemberRequest** | [**\VATUSA\Client\Model\DeleteMemberRequest**](../Model/DeleteMemberRequest.md)|  |
 
 ### Return type
 
@@ -422,11 +426,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[jwt](../../README.md#jwt), [session](../../README.md#session)
+[apikey](../../README.md#apikey), [jwt](../../README.md#jwt), [session](../../README.md#session)
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -443,10 +447,16 @@ Get facility staff. Email field requires authentication as senior staff.     Bro
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+// Configure API key authorization: apikey
+$config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKey('apikey', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = VATUSA\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('apikey', 'Bearer');
+
 $apiInstance = new VATUSA\Client\Api\FacilityApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $id = "id_example"; // string | Facility IATA ID
 
@@ -471,7 +481,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[apikey](../../README.md#apikey)
 
 ### HTTP request headers
 

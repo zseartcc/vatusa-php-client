@@ -1957,15 +1957,15 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteMemberRequest $deleteMemberRequest deleteMemberRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \VATUSA\Client\Model\OK
      */
-    public function facilityIdRosterCidDelete($id, $cid, $reason)
+    public function facilityIdRosterCidDelete($id, $cid, $deleteMemberRequest)
     {
-        list($response) = $this->facilityIdRosterCidDeleteWithHttpInfo($id, $cid, $reason);
+        list($response) = $this->facilityIdRosterCidDeleteWithHttpInfo($id, $cid, $deleteMemberRequest);
         return $response;
     }
 
@@ -1976,16 +1976,16 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteMemberRequest $deleteMemberRequest (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \VATUSA\Client\Model\OK, HTTP status code, HTTP response headers (array of strings)
      */
-    public function facilityIdRosterCidDeleteWithHttpInfo($id, $cid, $reason)
+    public function facilityIdRosterCidDeleteWithHttpInfo($id, $cid, $deleteMemberRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->facilityIdRosterCidDeleteRequest($id, $cid, $reason);
+        $request = $this->facilityIdRosterCidDeleteRequest($id, $cid, $deleteMemberRequest);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2085,14 +2085,14 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteMemberRequest $deleteMemberRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function facilityIdRosterCidDeleteAsync($id, $cid, $reason)
+    public function facilityIdRosterCidDeleteAsync($id, $cid, $deleteMemberRequest)
     {
-        return $this->facilityIdRosterCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+        return $this->facilityIdRosterCidDeleteAsyncWithHttpInfo($id, $cid, $deleteMemberRequest)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2107,15 +2107,15 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteMemberRequest $deleteMemberRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function facilityIdRosterCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+    public function facilityIdRosterCidDeleteAsyncWithHttpInfo($id, $cid, $deleteMemberRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->facilityIdRosterCidDeleteRequest($id, $cid, $reason);
+        $request = $this->facilityIdRosterCidDeleteRequest($id, $cid, $deleteMemberRequest);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2159,12 +2159,12 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteMemberRequest $deleteMemberRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function facilityIdRosterCidDeleteRequest($id, $cid, $reason)
+    protected function facilityIdRosterCidDeleteRequest($id, $cid, $deleteMemberRequest)
     {
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
@@ -2178,10 +2178,10 @@ class FacilityApi
                 'Missing the required parameter $cid when calling facilityIdRosterCidDelete'
             );
         }
-        // verify the required parameter 'reason' is set
-        if ($reason === null || (is_array($reason) && count($reason) === 0)) {
+        // verify the required parameter 'deleteMemberRequest' is set
+        if ($deleteMemberRequest === null || (is_array($deleteMemberRequest) && count($deleteMemberRequest) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $reason when calling facilityIdRosterCidDelete'
+                'Missing the required parameter $deleteMemberRequest when calling facilityIdRosterCidDelete'
             );
         }
 
@@ -2210,12 +2210,11 @@ class FacilityApi
             );
         }
 
-        // form params
-        if ($reason !== null) {
-            $formParams['reason'] = ObjectSerializer::toFormValue($reason);
-        }
         // body params
         $_tempBody = null;
+        if (isset($deleteMemberRequest)) {
+            $_tempBody = $deleteMemberRequest;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -2224,7 +2223,7 @@ class FacilityApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['multipart/form-data']
+                ['application/json']
             );
         }
 
@@ -2264,6 +2263,11 @@ class FacilityApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('apikey');
+        if ($apiKey !== null) {
+            $queryParams['apikey'] = $apiKey;
+        }
         // this endpoint requires HTTP basic authentication
         if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
             $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
@@ -2549,6 +2553,11 @@ class FacilityApi
             }
         }
 
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('apikey');
+        if ($apiKey !== null) {
+            $queryParams['apikey'] = $apiKey;
+        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
