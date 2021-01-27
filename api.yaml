@@ -1,0 +1,5604 @@
+swagger: '2.0'
+info:
+  title: VATUSA API
+  description: |-
+    VATUSA APIv2 Documentation.
+                Authentication methods are: <ul>
+                <li> JSON Web Tokens (Translated from Laravel session)</li>
+                <li> Session Cookies (Client-side credentials with ULS)</li>
+                <li> API Keys (Issued to facilities)</li></ul>
+                <p>Method security, if applicable, is indicated in brackets at the end of each endpoint title.</p>
+                <p>Security classification: <ul>
+                    <li><strong>Private:</strong> CORS Restricted (Internal)</li>
+                    <li><strong>Auth:</strong> Accepts Session Cookie or JWT</li>
+                    <li><strong>Key:</strong> Accepts API Key, Session Cookie, or JWT</li>
+                </ul></p>
+                <p>Facilities that have a APIv2 JWK defined in facility settings will have the data encapsulated in a
+                signed package.  For more information, please see the IT section of the VATUSA forums.</p>
+                <p>To prevent database changes in a development environment, you can either use your API sandbox key
+                 or pass the <strong>?test</strong> query parameter with the call. Whether or not <strong>?test</strong> is present,
+                 if both Sandbox JWK and Dev URL are configured, and the domains match, the response will be formatted according to JSON Web Signature, RFC 7515. </p>
+  contact:
+    name: Blake Nahin
+    url: 'https://www.vatusa.net'
+  version: '2.3'
+  x-logo:
+    url: 'https://www.vatusa.net/img/logo-light.png'
+host: api.vatusa.net
+basePath: /v2
+schemes:
+  - https
+paths:
+  /auth/token:
+    get:
+      tags:
+        - auth
+      summary: 'Get JWT. [Private]'
+      description: Get JWT. CORS Restricted
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Return JSON Token.
+          schema:
+            properties:
+              token:
+                type: string
+                example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJodHRwczovL2FwaS52YXR1c2EubmV0L3YyL2F1dGgiLCJpYXQiOjE1MTAyODA5NzIsImV4cCI6MTUxMDI4NDU3MiwibmJmIjoxNTEwMjgwOTcyLCJqdGkiOiIzRHU5S2xBRkJsQk5CTTA0Iiwic3ViIjoiODc2NTk0IiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.vAzBMZgnzxymv6LnftovyN3Mww7obJ7Ms9H4nQ1la9dLOHpAzW2RvvBjMFdkvi3GyCJoVx23B8uOGOCpRKj5Qg
+            type: object
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+      security:
+        - session: []
+  /auth/token/refresh:
+    get:
+      tags:
+        - auth
+      summary: 'Refresh JWT. [Private]'
+      description: Refresh JWT. CORS Restricted
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Return JSON Token.
+          schema:
+            properties:
+              token:
+                type: string
+                example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJodHRwczovL2FwaS52YXR1c2EubmV0L3YyL2F1dGgiLCJpYXQiOjE1MTAyODA5NzIsImV4cCI6MTUxMDI4NDU3MiwibmJmIjoxNTEwMjgwOTcyLCJqdGkiOiIzRHU5S2xBRkJsQk5CTTA0Iiwic3ViIjoiODc2NTk0IiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.vAzBMZgnzxymv6LnftovyN3Mww7obJ7Ms9H4nQ1la9dLOHpAzW2RvvBjMFdkvi3GyCJoVx23B8uOGOCpRKj5Qg
+            type: object
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+      security:
+        - jwt: []
+        - session: []
+  /auth/info:
+    get:
+      tags:
+        - auth
+      summary: 'Get information about logged in user. [Private]'
+      description: Get user info. CORS Restricted
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Return User object
+          schema:
+            $ref: '#/definitions/User'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+      security:
+        - jwt: []
+        - session: []
+  /cbt:
+    get:
+      tags:
+        - cbt
+      summary: Get blocks filtered by facility.
+      description: Get CBT Blocks filtered by facility.
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: query
+          description: Filter by facility id
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              blocks:
+                type: array
+                items:
+                  $ref: '#/definitions/TrainingBlock'
+            type: object
+    post:
+      tags:
+        - cbt
+      summary: 'Create new block. [Auth]'
+      description: 'Create new block. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA STAFF)'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: formData
+          description: |-
+            Facility IATA
+                 *                                     ID
+          required: true
+          type: string
+        - name: name
+          in: formData
+          description: Name of block
+          required: true
+          type: string
+        - name: level
+          in: formData
+          description: |-
+            Rating level - ALL,
+                 *                                  S1, C1, I1, Staff, Senior Staff
+          required: false
+          type: string
+        - name: visible
+          in: formData
+          description: |-
+            Block is
+                 *                                    visible
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  /cbt/{id}:
+    put:
+      tags:
+        - cbt
+      summary: 'Edit block. [Auth]'
+      description: 'Edit CBT Block. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA STAFF)'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Block ID
+          required: true
+          type: integer
+        - name: sortOrder
+          in: formData
+          description: |-
+            Order location, sort lowest to
+                 *                                      highest
+          type: integer
+        - name: name
+          in: formData
+          description: Name of block
+          type: string
+        - name: visible
+          in: formData
+          description: |-
+            Whether or not it is
+                 *                                    active/public
+          type: boolean
+        - name: level
+          in: formData
+          description: |-
+            Access level (plain text options:
+                 *                                  All, S1, C1, I1, Staff, Senior Staff)
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Malformed
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - cbt
+      summary: 'Delete block. [Auth]'
+      description: 'Delete block. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA STAFF)'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Block ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+  /cbt/{blockId}:
+    get:
+      tags:
+        - cbt
+      summary: Get chapters in block.
+      description: Get Chapters for specified CBT Block.
+      produces:
+        - application/json
+      parameters:
+        - name: blockId
+          required: true
+          in: path
+          description: Block ID
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              blockId:
+                description: Block ID
+                type: integer
+              blockName:
+                description: Block name
+                type: string
+              facility:
+                description: Facility IATA ID
+                type: string
+              chapters:
+                type: array
+                items:
+                  properties:
+                    id:
+                      description: Chapter ID
+                      type: integer
+                    sortOrder:
+                      description: |-
+                        Order location, sort lowest
+                             *                                                         to highest
+                      type: integer
+                    name:
+                      description: Name of chapter
+                      type: string
+                    active:
+                      description: |-
+                        Whether or not it is
+                             *                                                      active/public
+                      type: boolean
+                    link:
+                      description: Link to object
+                      type: string
+                  type: object
+            type: object
+    post:
+      tags:
+        - cbt
+      summary: 'Create new chapter. [Auth]'
+      description: |-
+        Create new chapter. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA
+             *     STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: blockId
+          in: path
+          description: Block ID
+          required: true
+          type: integer
+        - name: facility
+          in: formData
+          description: |-
+            Facility IATA
+                 *                                     ID
+          required: true
+          type: string
+        - name: name
+          in: formData
+          description: Name of block
+          required: true
+          type: string
+        - name: url
+          in: formData
+          description: |-
+            URL of chapter
+                 *                                object
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+  /cbt/{blockId}/{chapterId}:
+    put:
+      tags:
+        - cbt
+      summary: 'Edit chapter. [Auth]'
+      description: 'Edit CBT Chapter. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA STAFF)'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: blockId
+          in: path
+          description: Block ID
+          required: true
+          type: string
+        - name: chapterId
+          in: path
+          description: Chapter ID
+          required: true
+          type: integer
+        - name: sortOrder
+          in: formData
+          description: |-
+            Order location, sort lowest to
+                 *                                      highest
+          type: integer
+        - name: name
+          in: formData
+          description: Name of block
+          type: string
+        - name: active
+          in: formData
+          description: |-
+            Whether or not it is
+                 *                                   active/public
+          type: boolean
+        - name: url
+          in: formData
+          description: |-
+            Link to object (PDF, YouTube, or other
+                 *                                embeddable object
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - cbt
+      summary: 'Delete chapter. [Auth]'
+      description: 'Delete chapter. Requires JWT or Session Cookie (required role: ATM, DATM, TA, VATUSA STAFF)'
+      produces:
+        - application/json
+      parameters:
+        - name: blockId
+          in: path
+          description: Block ID
+          required: true
+          type: integer
+        - name: chapterId
+          in: path
+          description: Chapter ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+  /email:
+    get:
+      tags:
+        - email
+      summary: 'Get info of VATUSA email address assigned for user. [Private]'
+      description: Get info of VATUSA email address assigned for user. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                type:
+                  description: |-
+                    Type of email
+                         *                                                (forward/full/static)
+                  type: string
+                email:
+                  description: Email address
+                  type: string
+                destination:
+                  description: |-
+                    Destination for email
+                         *                                                       forwards
+                  type: string
+              type: object
+          examples:
+            application/json:
+              - type: forward
+                email: test@vatusa.net
+                destination: test2@vatusa.net
+              - type: full
+                email: easy@vatusa.net
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+      security:
+        - jwt: []
+        - session: []
+    put:
+      tags:
+        - email
+      summary: 'Modify email account. [Private]'
+      description: |-
+        Modify email account. Static forwards may only be modified by the ATM, DATM or WM. CORS
+             *     Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+        - name: email
+          in: query
+          description: Email Address
+          required: true
+          type: string
+        - name: destination
+          in: query
+          description: Set destination for forwarded address
+          type: string
+        - name: password
+          in: query
+          description: Password for full account
+          type: string
+        - name: static
+          in: query
+          description: Is static forward or not
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: |-
+                Missing required
+                      *         field
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '409':
+          description: 'Conflict, usually caused by mismatched parameters'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Ambiguous request
+        '500':
+          description: Server error
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unknown error
+      security:
+        - jwt: []
+        - session: []
+  /email/{address}:
+    get:
+      tags:
+        - email
+      summary: 'Get info of VATUSA email address. [Private]'
+      description: Get info of VATUSA email address. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+        - name: address
+          in: path
+          description: Email address
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                type:
+                  description: |-
+                    Type of email
+                         *                                                (forward/full/static)
+                  type: string
+                email:
+                  description: Email address
+                  type: string
+                destination:
+                  description: |-
+                    Destination for email
+                         *                                                       forwards
+                  type: string
+                static:
+                  description: Is address static?
+                  type: boolean
+              type: object
+          examples:
+            application/json:
+              type: full
+              email: easy@vatusa.net
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: |-
+                Missing required
+                      *         field
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  /email/hosted:
+    get:
+      tags:
+        - email
+      summary: 'Get VATUSA hosted email accounts.  [Private]'
+      description: Get VATUSA hosted email accounts. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+        - name: facility
+          in: query
+          description: Facility IATA ID
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              emails:
+                type: array
+                items:
+                  $ref: '#/definitions/EmailAccounts'
+            type: object
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not Found
+      security:
+        - jwt: []
+        - session: []
+  /email/hosted/{facility}/{username}:
+    put:
+      tags:
+        - email
+      summary: 'Modify VATUSA hosted email account. [Private]'
+      description: Modify VATUSA hosted email account. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+        - name: username
+          in: path
+          description: Email username
+          required: true
+          type: string
+        - name: facility
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: cid
+          in: query
+          description: Owning CID
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: |-
+                Missing required
+                      *         field
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - email
+      summary: 'Delete VATUSA hosted email account. [Private]'
+      description: Delete VATUSA hosted email account. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+        - name: username
+          in: path
+          description: Email username
+          required: true
+          type: string
+        - name: facility
+          in: path
+          required: true
+          description: Facility IATA ID
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: |-
+                Missing required
+                      *         field
+        '401':
+          description: Unauthenticated
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthenticated
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  '/exam/queue/{examId}':
+    post:
+      tags:
+        - exam
+      summary: 'Add exam to queue for the VATUSA Exam Center. [Private]'
+      description: Sets the exam as the queued exam for VEC. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: examId
+          in: path
+          description: Exam ID to place in queue
+          required: true
+          type: integer
+          format: int64
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Exam has been queued
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '403':
+          description: Forbidden -- usually the exam assignment doesn't belong to the authenticated user
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Exam assignment not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Not Found
+      security:
+        - jwt: []
+        - session: []
+  /exam/submit:
+    post:
+      tags:
+        - exam
+      summary: 'Submit exam payload for grading. [Private]'
+      description: Submit exam from VEC for grading. CORS Restricted
+      produces:
+        - application/json
+      parameters:
+        - name: payload
+          in: header
+          description: Exam payload (base64)
+          required: true
+          type: string
+        - name: answers
+          in: header
+          description: Answers (base64)
+          required: true
+          type: string
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Exam has been processed
+          schema:
+            properties:
+              results:
+                type: string
+            type: object
+          examples:
+            application/json:
+              results: Not Passed
+        '400':
+          description: 'Bad Request, usually for missing parameter'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: |-
+                Missing
+                      *         data
+        '404':
+          description: Exam assignment not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Not Found
+      security:
+        - jwt: []
+  /exam/request:
+    get:
+      tags:
+        - exam
+      summary: |-
+        Generates and sends exam payload for VATUSA Exam Center based on queued exam for JWT auth'd user.
+            [Private]
+      description: |-
+        Generates and sends exam payload for VATUSA Exam Center based on queued exam for
+            JWT auth'd user. CORS Restricted
+      produces:
+        - application/json
+      parameters:
+        - name: bearer
+          in: header
+          description: JWT Token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Exam generated
+          schema:
+            properties:
+              payload:
+                description: |-
+                  base64 encoded
+                      quiz payload, with signature appended
+                type: string
+            type: object
+        '404':
+          description: Queue/Exam Assignment not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: No exam queued
+      security:
+        - jwt: []
+  '/exams/{facility}':
+    get:
+      tags:
+        - exam
+      summary: Get list of exams
+      description: Generates list of exams.
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: path
+          required: true
+          description: |-
+            (OPTIONAL) Filter list by Facility
+                IATA ID
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Exam'
+          examples:
+            application/json:
+              - id: 50
+                facility_id: ZAE
+                name: |-
+                  VATUSA - S2 Rating (TWR) Controller
+                                 Exam
+                number: 20
+                is_active: 1
+                cbt_required: 118
+                retake_period: 3
+                passing_score: 80
+                answer_visibility: all_passed
+  /exams/{examid}:
+    get:
+      tags:
+        - exam
+      summary: Get exam details
+      description: Get exam details by ID
+      produces:
+        - application/json
+      parameters:
+        - name: examid
+          in: path
+          description: |-
+            Get exam details of
+                 *                                   id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Exam'
+          examples:
+            application/json:
+              id: 50
+              facility_id: ZAE
+              name: |-
+                VATUSA - S2 Rating (TWR) Controller
+                               Exam
+              number: 20
+              is_active: 1
+              cbt_required: 118
+              retake_period: 3
+              passing_score: 80
+              answer_visibility: all_passed
+        '404':
+          description: Facility/Exam Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Not Found
+    put:
+      tags:
+        - exam
+      summary: 'Edit details of exam. [Private]'
+      description: Edit details of exam. CORS Restricted
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: formData
+          description: |-
+            Filter list by
+                Facility IATA ID
+          required: true
+          type: string
+        - name: examid
+          in: path
+          description: Exam ID
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Exam name
+          type: string
+        - name: cbtRequired
+          in: formData
+          description: ID of CBT Required
+          type: integer
+        - name: passingScore
+          in: formData
+          description: |-
+            Passing Score Percentage *
+                100
+          type: integer
+        - name: retakePeriod
+          in: formData
+          description: |-
+            Auto reassign on fail after
+                X days, 0 = no auto reassign, valid values: 1, 3, 5, 7, 14
+          type: integer
+        - name: numberQuestions
+          in: formData
+          description: |-
+            Number of questions to
+                ask, 0 = all
+          type: integer
+        - name: active
+          in: formData
+          description: |-
+            Is exam active? (numeric
+                representation of bool 1 = active, 0 = not active)
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of ATM, DATM or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Facility/Exam Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Not Found
+    post:
+      tags:
+        - exam
+      summary: 'Create new question. [Private]'
+      description: Create new question. CORS Restricted.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: formData
+          description: |-
+            Filter list by
+                Facility IATA ID
+          required: true
+          type: string
+        - name: examid
+          in: path
+          description: Exam ID
+          required: true
+          type: integer
+        - name: question
+          in: formData
+          description: Question text
+          required: true
+          type: string
+        - name: type
+          in: formData
+          description: |-
+            Type of question
+                (multiple|truefalse)
+          required: true
+          type: string
+        - name: choice1
+          in: formData
+          description: Answer
+          required: true
+          type: string
+        - name: choice2
+          in: formData
+          description: |-
+            Distractor #1 (only for
+                type=multiple)
+          type: string
+        - name: choice3
+          in: formData
+          description: |-
+            Distractor #2 (only for
+                type=multiple)
+          type: string
+        - name: choice4
+          in: formData
+          description: |-
+            Distractor #3 (only for
+                type=multiple)
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OKID'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of ATM, DATM or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+  /exams/{examid}/questions:
+    get:
+      tags:
+        - exam
+      summary: 'Generate list of questions. [Auth]'
+      description: Generates list of questions. Session cookie or JWT required.
+      produces:
+        - application/json
+      parameters:
+        - name: examid
+          in: path
+          description: exam id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Exam'
+          examples:
+            application/json:
+              - id: 1959
+                exam_id: 53
+                question: |-
+                  Green Bay is a Class __
+                                 airspace.
+                type: 0
+                answer: Charlie
+                alt1: Bravo
+                alt2: Delta
+                alt3: Foxtrot
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Not Found
+      security:
+        - session: []
+        - jwt: []
+  /exams/{examid}/{questionID}:
+    put:
+      tags:
+        - exam
+      summary: 'Edit question. [Private]'
+      description: Edit question. CORS Restricted.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: query
+          description: |-
+            Filter list by
+                 *                                     Facility IATA ID
+          required: true
+          type: string
+        - name: examid
+          in: path
+          description: Exam ID
+          required: true
+          type: integer
+        - name: questionID
+          in: path
+          description: Question ID
+          required: true
+          type: integer
+        - name: question
+          in: formData
+          description: Question text
+          required: true
+          type: string
+        - name: type
+          in: formData
+          description: |-
+            Type of question
+                (multiple|truefalse)
+          required: true
+          type: string
+        - name: choice1
+          in: formData
+          description: Answer
+          required: true
+          type: string
+        - name: choice2
+          in: formData
+          description: |-
+            Distractor #1 (only for
+                type=multiple)
+          type: string
+        - name: choice3
+          in: formData
+          description: |-
+            Distractor #2 (only for
+                type=multiple)
+          type: string
+        - name: choice4
+          in: formData
+          description: |-
+            Distractor #3 (only for
+                type=multiple)
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of ATM, DATM or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+  /exam/{id}/assign/{cid}:
+    post:
+      tags:
+        - user
+        - exam
+      summary: 'Assign exam. [Auth]'
+      description: |-
+        Assign exam to specified controller. Requires JWT or Session Cookie. Must be instructor, senior
+                   staff or VATUSA staff.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Exam ID
+          type: integer
+        - name: cid
+          in: path
+          required: true
+          description: VATSIM ID
+          type: integer
+        - name: expire
+          in: formData
+          description: |-
+            Days until expiration, 7
+                 *                                   default
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of ATM, DATM or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '409':
+          description: Conflict - likely means already assigned
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+    delete:
+      tags:
+        - user
+        - exam
+      summary: 'Delete exam assignment. [Auth]'
+      description: Delete user's exam assignment. Requires JWT or Session Cookie.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Exam ID Number
+          type: integer
+        - name: cid
+          in: path
+          required: true
+          description: CERT ID
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of INS, ATM, DATM, or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+  /facility:
+    get:
+      tags:
+        - facility
+      summary: Get list of VATUSA facilities.
+      description: Get list of VATUSA facilities.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Facility'
+          examples:
+            application/json:
+              - id: HCF
+                name: Honolulu CF
+                url: 'http://www.hcfartcc.net'
+                region: 7
+              - id: ZAB
+                name: Albuquerque ARTCC
+                url: 'http:\/\/www.zabartcc.org'
+                region: 8
+  '/facility/{id}':
+    get:
+      tags:
+        - facility
+      summary: Get facility information.
+      description: Get facility information.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              facility:
+                $ref: '#/definitions/Facility'
+              roles:
+                type: array
+                items:
+                  $ref: '#/definitions/Role'
+              stats:
+                properties:
+                  controllers:
+                    description: |-
+                      Number of controllers on
+                          facility roster
+                    type: integer
+                  pendingTransfers:
+                    description: |-
+                      Number of pending
+                          transfers to facility
+                    type: integer
+                type: object
+            type: object
+          examples:
+            application/json:
+              - id: HCF
+                name: Honolulu CF
+                url: 'http:\/\/www.hcfartcc.net'
+                role:
+                  - cid: 1245046
+                    name: Toby Rice
+                    role: MTR
+                  - cid: 1152158
+                    name: Taylor Broad
+                    role: MTR
+                  - cid: 1147076
+                    name: Dave Mayes
+                    role: ATM
+                  - cid: 1245046
+                    name: Toby Rice
+                    role: DATM
+                  - cid: 1289149
+                    name: Israel Reyes
+                    role: FE
+                  - cid: 1152158
+                    name: Taylor Broad
+                    role: WM
+                stats:
+                  controllers: 19
+                  pendingTransfers: 0
+                notices:
+                  D01:
+                    - id: 4
+                      tmu_facility_id: D01
+                      priority: 2
+                      message: Ground hold in effect until 2300Z.
+                      expire_date: '2019-08-01 00:00:00'
+                      created_at: '2019-07-18 08:04:36'
+                      updated_at: '2019-07-18 08:04:36'
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+    put:
+      tags:
+        - facility
+      summary: 'Update facility information. [Auth]'
+      description: 'Update facility information. Requires JWT or Session Cookie. Must be ATM, DATM, or WM.'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: url
+          in: formData
+          description: Change facility URL
+          type: string
+        - name: url_dev
+          in: formData
+          description: Change facility Dev URL(s)
+          type: string
+        - name: uls2jwk
+          in: formData
+          description: Request new ULS JWK
+          type: string
+        - name: apiv2jwk
+          in: formData
+          description: Request new APIv2 JWK
+          type: string
+        - name: jwkdev
+          in: formData
+          description: Request new testing JWK
+          type: boolean
+        - name: apikey
+          in: formData
+          description: Request new API Key for facility
+          type: string
+        - name: apikeySandbox
+          in: formData
+          description: |-
+            Request new Sandbox API Key
+                for facility
+          type: string
+        - name: ulsSecret
+          in: formData
+          description: |-
+            Request new ULS Secret, role
+                restricted
+          type: string
+        - name: ulsReturn
+          in: formData
+          description: |-
+            Set new ULS return point, role
+                restricted
+          type: string
+        - name: ulsDevReturn
+          in: formData
+          description: |-
+            Set new ULS developmental
+                return point
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              apikey:
+                type: string
+              apikeySandbox:
+                type: string
+              ulsSecret:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+  /facility/{id}/email/{templateName}:
+    get:
+      tags:
+        - facility
+        - email
+      summary: 'Get facility''s email template. [Key]'
+      description: 'Get facility''s email template. Requires API Key, Session Cookie (ATM/DATM/TA), or JWT'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: templateName
+          in: path
+          description: |-
+            Name of template (welcome, examassigned,
+                examfailed, exampassed)
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmailTemplate'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+    post:
+      tags:
+        - facility
+        - email
+      summary: 'Modify facility''s email template. [Auth]'
+      description: Modify facility's email template. Requires JWT or Session Cookie (ATM/DATM/TA)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: templateName
+          in: path
+          description: |-
+            Name of template (welcome, examassigned,
+                 *                                         examfailed, exampassed)
+          required: true
+          type: string
+        - name: body
+          in: formData
+          description: Text of template
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              template:
+                type: string
+              body:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+  /facility/{id}/roster:
+    get:
+      tags:
+        - facility
+      summary: Get facility roster.
+      description: |-
+        Get facility staff. Email field requires authentication as senior staff.
+            Broadcast opt-in status requires API key or staff member authentication. Prevent Staff Assignment field requires
+            authentication as senior staff.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+  /facility/{id}/roster/{cid}:
+    delete:
+      tags:
+        - facility
+      summary: 'Delete member from facility roster. [Auth]'
+      description: |-
+        Delete member from facility roster.  JWT or Session Cookie required (required role: ATM,
+            DATM, VATUSA STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: cid
+          in: path
+          description: CID of controller
+          required: true
+          type: integer
+        - name: reason
+          in: formData
+          description: Reason for deletion
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: 'Malformed request, missing required parameter'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to have role of ATM, DATM or VATUSA Division staff member'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+  /facility/{id}/transfers:
+    get:
+      tags:
+        - facility
+      summary: 'Get pending transfers. [Key]'
+      description: 'Get pending transfers. Requires API Key, Session Cookie, or JWT'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              transfers:
+                type: array
+                items:
+                  properties:
+                    id:
+                      description: Transfer ID
+                      type: integer
+                    cid:
+                      description: VATSIM ID
+                      type: integer
+                    fname:
+                      description: First name
+                      type: string
+                    lname:
+                      description: Last name
+                      type: string
+                    email:
+                      description: |-
+                        Email, if authenticated as staff
+                            member and/or api key is present.
+                      type: string
+                    reason:
+                      description: |-
+                        Transfer reason; must be
+                             *                                                      authenticated as senior staff.
+                      type: string
+                    fromFac:
+                      type: array
+                      items:
+                        properties:
+                          id:
+                            description: Facility ID (ex. ZSE)
+                            type: integer
+                          name:
+                            description: |-
+                              Facility Name (ex.
+                                  Seattle ARTCC)
+                            type: integer
+                        type: object
+                    rating:
+                      description: 'Short string rating (S1, S2)'
+                      type: string
+                    intRating:
+                      description: |-
+                        Numeric rating (OBS = 1,
+                            etc)
+                      type: integer
+                    date:
+                      description: |-
+                        Date transfer submitted
+                            (YYYY-MM-DD)
+                      type: string
+                  type: object
+            type: object
+          examples:
+            application/json:
+              status: OK
+              transfers:
+                id: 5606
+                cid: 1275302
+                fname: Blake
+                lname: Nahin
+                email: null
+                reason: 'Only one class B? Too easy. I want something harder, like ZTL.'
+                rating: C1
+                intRating: 5
+                date: '2014-12-19'
+                fromFac:
+                  id: ZSE
+                  name: Seattle ARTCC
+        '400':
+          description: 'Malformed request, missing required parameter'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  '/facility/{id}/transfers/{transferId}':
+    put:
+      tags:
+        - facility
+      summary: 'Modify transfer request.  [Auth]'
+      description: |-
+        Modify transfer request.  JWT or Session cookie required. (required role: ATM, DATM,
+            VATUSA STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: transferId
+          in: path
+          description: Transfer ID
+          required: true
+          type: integer
+        - name: action
+          in: formData
+          description: |-
+            Action to take on transfer request. Valid values:
+                approve,reject
+          required: true
+          type: string
+          enum:
+            - approve
+            - reject
+        - name: reason
+          in: formData
+          description: |-
+            Reason for transfer request rejection
+                [required for rejections]
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: 'Malformed request, missing required parameter'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+        '410':
+          description: Gone
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Transfer is not pending
+      security:
+        - jwt: []
+        - session: []
+  /facility/{id}/ulsReturns:
+    get:
+      tags:
+        - facility
+      summary: 'Get ULS return paths. [Key]'
+      description: 'Get ULS return paths. Requires API Key, Session Cookie, or JWT'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              paths:
+                type: array
+                items:
+                  properties:
+                    id:
+                      description: Path DB ID
+                      type: integer
+                    order:
+                      description: ID used in ULS query
+                      type: integer
+                    facility_id:
+                      description: |-
+                        Facility assocaited with
+                            path
+                      type: string
+                    url:
+                      description: Return URL
+                      type: string
+                  type: object
+            type: object
+          examples:
+            application/json:
+              status: OK
+              paths:
+                id: 1
+                order: 1
+                facility_id: ZSE
+                url: 'https://zseartcc.org/uls-return/'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+    put:
+      tags:
+        - facility
+      summary: 'Edit ULS return path. [Key]'
+      description: 'Edit ULS return path. Requires API Key, Session Cookie, or JWT'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: url
+          in: formData
+          description: Return URL
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+            type: object
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+    post:
+      tags:
+        - facility
+      summary: 'Add ULS return path. [Key]'
+      description: 'Add new ULS return path. Requires API Key, Session Cookie, or JWT'
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: order
+          in: formData
+          description: 'Order number, used in ULS query'
+          required: true
+          type: integer
+        - name: url
+          in: formData
+          description: Return URL
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+            type: object
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /facility/{id}/ulsReturns/{order}:
+    delete:
+      tags:
+        - facility
+      summary: 'Remove ULS return path. [Key]'
+      description: 'Remove ULS return path. Requires API Key, Session Cookie, or JWT'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: order
+          in: path
+          description: 'Order number, used in ULS query'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+            type: object
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: 'Forbidden -- needs to be a staff member, other than mentor'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Forbidden
+        '404':
+          description: Not found or not active
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Facility not found or not active
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /solo:
+    get:
+      tags:
+        - solo
+      summary: Get list of active solo certifications.
+      description: Get list of active solo certifications.
+      produces:
+        - application/json
+      parameters:
+        - name: position
+          in: query
+          description: Filter for position
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  description: Solo Certification id
+                  type: integer
+                cid:
+                  description: CERT ID of user
+                  type: integer
+                lastname:
+                  description: Last name
+                  type: string
+                firstname:
+                  description: First name
+                  type: string
+                position:
+                  description: 'Position ID (XYZ_APP, ZZZ_CTR)'
+                  type: string
+                expDate:
+                  description: Expiration Date (YYYY-MM-DD)
+                  type: string
+              type: object
+    post:
+      tags:
+        - solo
+      summary: 'Submit new solo certification. [Key]'
+      description: |-
+        Submit new solo certification. Requires API Key, JWT, or Session Cookie (required roles:
+            [N/A for API Key] ATM, DATM, TA, INS)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: formData
+          description: CERT ID
+          required: true
+          type: integer
+        - name: position
+          in: formData
+          description: |-
+            Position ID
+                (XYZ_APP, ZZZ_CTR)
+          required: true
+          type: string
+        - name: expDate
+          in: formData
+          description: |-
+            Date of expiration
+                (YYYY-MM-DD)
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              id:
+                description: ID number of solo certification
+                type: integer
+            type: object
+          examples:
+            application/json:
+              status: OK
+              id: 1234
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: |-
+                Invalid
+                      *         position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - solo
+      summary: 'Delete solo certification. [Key]'
+      description: |-
+        Delete solo certification. Pass the DB ID OR both CID and Position. Requires API Key, JWT, or
+             *     Session cookie (required roles: [N/A
+            for API Key] ATM, DATM, TA, INS).
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: formData
+          description: |-
+            Endorsement ID. Use this
+                 *                           OR both CID and Position.
+          required: false
+          type: integer
+        - name: cid
+          in: formData
+          description: Vatsim ID
+          required: true
+          type: integer
+        - name: position
+          in: formData
+          description: |-
+            Position ID (XYZ_APP,
+                ZZZ_CTR)
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /stats/exams/{facility}:
+    get:
+      tags:
+        - stats
+      summary: 'Get statistics of exam results. [Key]'
+      description: Get statistics of exam results. Requires API Key or facility staff authentication.
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: path
+          required: true
+          description: Filter for facility IATA ID
+          type: string
+        - name: month
+          in: query
+          description: 'Filter by month number, requires year'
+          type: integer
+        - name: year
+          in: query
+          description: 4 digit year to limit results by
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  description: Solo Certification id
+                  type: integer
+                cid:
+                  description: CERT ID of user
+                  type: integer
+                lastname:
+                  description: Last name
+                  type: string
+                firstname:
+                  description: First name
+                  type: string
+                position:
+                  description: 'Position ID (XYZ_APP, ZZZ_CTR)'
+                  type: string
+                expDate:
+                  description: Expiration Date (YYYY-MM-DD)
+                  type: string
+              type: object
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+  /support/kb:
+    get:
+      tags:
+        - support
+      summary: Get knowledgebase list.
+      description: Get knowledgebase list.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/KnowledgebaseCategories'
+    post:
+      tags:
+        - support
+      summary: 'Create knowledgebase category. [Auth]'
+      description: Creates knowledgebase category. Requires JWT or Session Cookie and VATUSA Staff role.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: Name of new category
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OKID'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Invalid position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  '/support/kb/{id}':
+    put:
+      tags:
+        - support
+      summary: 'Modify knowledgebase category. [Auth]'
+      description: Modify knowledgebase category. Requires JWT or Session Cookie and VATUSA Staff role.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of Knowledgebase Category
+          type: integer
+        - name: name
+          in: formData
+          description: New name of category
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Invalid position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - support
+      summary: 'Delete knowledgebase category. [Auth]'
+      description: Delete knowledgebase category. Requires JWT or Session Cookie and VATUSA Staff role.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of Knowledgebase Category
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: |-
+                Invalid
+                      *         position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+    post:
+      tags:
+        - support
+      summary: 'Create knowledgebase question. [Auth]'
+      description: Creates knowledgebase question. Requires JWT or Session Cookie and VATUSA Staff role.
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of category
+          type: integer
+        - name: question
+          in: formData
+          description: Question
+          type: string
+        - name: answer
+          in: formData
+          description: Answer
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OKID'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Invalid position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+  '/support/kb/{categoryid}/{questionid}':
+    put:
+      tags:
+        - support
+      summary: 'Modify knowledgebase question. [Auth]'
+      description: Modify knowledgebase question. Requires JWT or Session Cookie and VATUSA Staff Role
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: categoryid
+          in: path
+          required: true
+          description: ID of Knowledgebase Category
+          type: integer
+        - name: questionid
+          in: path
+          required: true
+          description: ID of question
+          type: integer
+        - name: question
+          in: formData
+          description: New question
+          type: string
+        - name: answer
+          in: formData
+          description: New answer
+          type: string
+        - name: category
+          in: formData
+          description: Move to new category
+          type: integer
+        - name: order
+          in: formData
+          description: New order placement
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Invalid position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - support
+      summary: 'Delete knowledgebase question. [Auth]'
+      description: Delete knowledgebase question. Requires JWT or Session Cookie and VATUSA Staff role.
+      produces:
+        - application/json
+      parameters:
+        - name: categoryid
+          in: path
+          required: true
+          description: ID of Knowledgebase Category
+          type: integer
+        - name: questionid
+          in: path
+          required: true
+          description: ID of question
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '400':
+          description: 'Malformed request, check format of position, expDate'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              message: Invalid position
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  /support/tickets/depts:
+    get:
+      tags:
+        - support
+      summary: Get list of assignable departments.
+      description: Get list of assignable departments.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              depts:
+                type: array
+                items:
+                  properties:
+                    id:
+                      description: ID of Dept
+                      type: string
+                    name:
+                      description: Name of Dept
+                      type: string
+                  type: object
+            type: object
+  '/support/tickets/depts/{dept}/staff':
+    get:
+      tags:
+        - support
+      summary: Get list of assignable staff members for department.
+      description: 'Get list of assignable staff members for {dept}.'
+      produces:
+        - application/json
+      parameters:
+        - name: dept
+          in: path
+          required: true
+          description: ID for Dept
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              staff:
+                type: array
+                items:
+                  properties:
+                    cid:
+                      description: CID of Staff Member
+                      type: string
+                    name:
+                      description: Name of Dept
+                      type: string
+                    role:
+                      description: Role
+                      type: string
+                  type: object
+            type: object
+  '/survey/{id}':
+    get:
+      tags:
+        - survey
+      summary: 'Get survey questions. [Private]'
+      description: Get survey questions (CORS Restricted).
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Survey Assignment ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              survey:
+                $ref: '#/definitions/Survey'
+              items:
+                type: array
+                items:
+                  $ref: '#/definitions/SurveyQuestion'
+            type: object
+        '309':
+          description: Conflict (survey already completed)
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Conflict
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+    post:
+      tags:
+        - survey
+      summary: 'Submit survey. [Private]'
+      description: Submit survey (CORS Restricted).
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Survey Assignment ID
+          required: true
+          type: string
+        - name: data
+          in: formData
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '309':
+          description: Conflict (survey already completed)
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Conflict
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed Request
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+  '/survey/{id}/assign/{cid}':
+    post:
+      tags:
+        - survey
+      summary: 'Assign a survey to cid. [Private]'
+      description: Assign a survey to cid (CORS Restricted).
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Survey ID
+          required: true
+          type: integer
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+        '309':
+          description: Conflict (survey already completed)
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Conflict
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+  /tmu/notices:
+    get:
+      tags:
+        - tmu
+      summary: Get list of TMU Notices.
+      description: Get list of TMU Notices for either all of VATUSA or for the specified TMU Map ID.
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: query
+          description: TMU Facility/Map ID (optional)
+          required: false
+          type: string
+        - name: children
+          in: query
+          description: |-
+            If a parent map is selected,
+                include its children TMU's Notices.
+          required: false
+          type: boolean
+        - name: onlyactive
+          in: query
+          description: |-
+            Only include active notices.
+                Default = true.
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  description: TMU Notice ID
+                  type: integer
+                tmu_facility:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        description: TMU Facility ID
+                        type: string
+                      name:
+                        description: TMU Facility Name
+                        type: string
+                      parent:
+                        description: Parent TMU Facility/ARTCC
+                        type: string
+                    type: object
+                priority:
+                  description: |-
+                    Priority of notice
+                        (0:Low,1:Standard,2:Urgent)
+                  type: string
+                message:
+                  description: Notice content
+                  type: string
+                expire_date:
+                  description: |-
+                    Expiration time in Zulu
+                        (YYYY-MM-DD H:i:s)
+                  type: string
+                start_date:
+                  description: |-
+                    Start time in Zulu (YYYY-MM-DD
+                        H:i:s)
+                  type: string
+                is_delay:
+                  description: TMU Notice is a ground stop or delay
+                  type: boolean
+                is_pref_route:
+                  description: TMU Notice is a preferred routing
+                  type: boolean
+              type: object
+    post:
+      tags:
+        - tmu
+      summary: 'Add new TMU Notice. [Key]'
+      description: |-
+        Add new TMU Notice. Requires API Key, JWT, or Session Cookie (required roles:
+            [N/A for API Key] ATM, DATM, TA, EC, INS)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: formData
+          description: TMU Facility/Map ID
+          required: true
+          type: string
+        - name: priority
+          in: formData
+          description: |-
+            Priority of notice
+                (1: Low, 2: Standard, 3: Urgent)
+          required: true
+          type: string
+        - name: message
+          in: formData
+          description: Notice content
+          required: true
+          type: string
+        - name: start_date
+          in: formData
+          description: |-
+            Effective date (YYYY-MM-DD
+                HH:MM)
+          type: string
+        - name: expire_date
+          in: formData
+          description: |-
+            Expiration date (YYYY-MM-DD
+                HH:MM)
+          type: string
+        - name: is_delay
+          in: formData
+          description: TMU Notice is a ground stop or delay
+          type: boolean
+        - name: is_pref_route
+          in: formData
+          description: TMU Notice is a preferred routing
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: OK
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /tmu/notice/{id}:
+    get:
+      tags:
+        - tmu
+      summary: Get TMU Notice info.
+      description: Get information for a specific TMU Notice.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: TMU Notice ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  description: TMU Notice ID
+                  type: integer
+                tmu_facility:
+                  type: array
+                  items:
+                    properties:
+                      id:
+                        description: TMU Facility ID
+                        type: string
+                      name:
+                        description: TMU Facility Name
+                        type: string
+                      parent:
+                        description: Parent TMU Facility/ARTCC
+                        type: string
+                    type: object
+                priority:
+                  description: |-
+                    Priority of notice
+                                                                                          (0:Low,1:Standard,2:Urgent)
+                  type: string
+                message:
+                  description: Notice content
+                  type: string
+                expire_date:
+                  description: 'Expiration time in Zulu (YYYY-MM-DD H:i:s)'
+                  type: string
+                start_date:
+                  description: 'Start time in Zulu (YYYY-MM-DD H:i:s)'
+                  type: string
+                is_delay:
+                  description: TMU Notice is a ground stop or delay.
+                  type: boolean
+                is_pref_route:
+                  description: TMU Notice is a preferred routing
+                  type: boolean
+              type: object
+    put:
+      tags:
+        - tmu
+      summary: 'Edit TMU Notice. [Key]'
+      description: |-
+        Edit TMU Notice. Requires API Key, JWT, or Session Cookie (required roles:
+            [N/A for API Key] ATM, DATM, TA, EC, INS)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: TMU Notice ID
+          required: true
+          type: integer
+        - name: facility
+          in: formData
+          description: TMU Facility/Map ID
+          type: string
+        - name: priority
+          in: formData
+          description: |-
+            Priority of notice
+                (1: Low, 2: Standard, 3: Urgent)
+          type: string
+        - name: message
+          in: formData
+          description: Notice content
+          type: string
+        - name: start_date
+          in: formData
+          description: 'Start time (YYYY-MM-DD HH:MM)'
+          type: string
+        - name: expire_date
+          in: formData
+          description: |-
+            Expiration time (YYYY-MM-DD HH:MM) - null for no
+                expiration
+          type: string
+        - name: is_delay
+          in: formData
+          description: TMU Notice is a ground stop or delay.
+          type: boolean
+        - name: is_pref_route
+          in: formData
+          description: TMU Notice is a preferred routing
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: OK
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - tmu
+      summary: 'Delete TMU Notice. [Key]'
+      description: |-
+        Delete solo certification. Requires API Key, JWT, or Session cookie (required roles: [N/A
+            for API Key] ATM, DATM, TA, EC, INS)
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: TMU Notice ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /training/record/{recordID}:
+    get:
+      tags:
+        - training
+      summary: 'Get training record. [Key]'
+      description: Get content of training record. Must have APIKey or be Senior Staff, Training Staff, or the student.
+      produces:
+        - application/json
+      parameters:
+        - name: recordID
+          in: path
+          description: Record ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TrainingRecord'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+    delete:
+      tags:
+        - training
+      summary: 'Delete training record. [Key]'
+      description: 'Delete training record. Must have APIKey or be Senior Staff, Training Staff, or the student.'
+      produces:
+        - application/json
+      parameters:
+        - name: recordID
+          in: path
+          description: Record ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+    put:
+      tags:
+        - training
+      summary: 'Edit training record. [Key]'
+      description: |-
+        Edit training record. Requires API Key, JWT, or Session Cookie (required roles: [N/A for API Key] Senior Staff, Training Staff)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: recordID
+          type: integer
+          in: path
+          required: true
+          description: Record ID
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TrainingRecord'
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              id:
+                description: DB ID of Record
+                type: integer
+            type: object
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /user/{cid}/training/records:
+    get:
+      tags:
+        - training
+        - user
+      summary: 'Get user''s training records. [Key]'
+      description: Get all user's training records. Must have APIKey or be Senior Staff, Training Staff, or the student.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: Controller ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              testing:
+                type: boolean
+            additionalProperties:
+              $ref: '#/definitions/TrainingRecord'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+  /facility/{facility}/training/records:
+    get:
+      tags:
+        - training
+        - facility
+      summary: 'Get facility''s training records. [Key]'
+      description: Get all facility's training records. Must have APIKey or be Senior Staff or Training Staff.
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: path
+          description: Facility
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TrainingRecord'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+  /training/records:
+    get:
+      tags:
+        - training
+      summary: 'Get all training records. [Private]'
+      description: Get all training records. CORS Restricted.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TrainingRecord'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+  /training/otsEval/{recordID}:
+    get:
+      tags:
+        - training
+      summary: 'Get OTS Eval content. [Private]'
+      description: Get content of OTS Eval. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: recordID
+          in: path
+          description: Record ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+  /training/record/{recordID}/otsEval:
+    get:
+      tags:
+        - training
+      summary: 'Get attached OTS eval. [Private]'
+      description: Get content of OTS Eval attached to given record. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: recordID
+          in: path
+          description: Record ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+  /user/{cid}/training/otsEvals:
+    get:
+      tags:
+        - training
+        - user
+      summary: 'Get user''s OTS evaluations. [Private]'
+      description: Get users training evaluations. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: Controller ID
+          required: true
+          type: integer
+        - name: rating_id
+          in: query
+          description: Filter by rating ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/otseval'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /training/evals:
+    get:
+      tags:
+        - training
+      summary: 'Get all OTS evaluations. [Private]'
+      description: Get all OTS evaluations. This does not include the actual content. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: rating_id
+          in: query
+          description: Filter by rating ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/otseval'
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /user/{cid}/training/record:
+    post:
+      tags:
+        - training
+      summary: 'Submit new training record. [Key]'
+      description: |-
+        Submit new training record. Requires API Key, JWT, or Session Cookie (required roles:
+            [N/A for API Key] Senior Staff, Training Staff)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: Controller ID
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TrainingRecord'
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              status:
+                type: string
+              id:
+                description: DB ID of Record
+                type: integer
+            type: object
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - apikey: []
+        - jwt: []
+        - session: []
+  /user/{cid}/training/otsEval:
+    post:
+      tags:
+        - training
+        - user
+      summary: 'Post new OTS Eval for a user. [Private]'
+      description: Post new OTS Eval for a user. CORS Restricted.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          type: integer
+          in: path
+          required: true
+          description: Controller ID
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Malformed request.
+          schema:
+            $ref: '#/definitions/error'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+      security:
+        - session: []
+        - jwt: []
+        - apikey: []
+  /user/{cid}:
+    get:
+      tags:
+        - user
+      summary: Get user's information.
+      description: |-
+        Get user's information. Email field and broadcast opt-in status require authentication as staff member or API key.
+            Prevent staff assigment flag requires authentication as senior staff.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: Cert ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+  /user/roles/{facility}/{role}:
+    get:
+      tags:
+        - user
+        - role
+      summary: Get users assigned to specific staff role.
+      description: Get users assigned to specific staff role
+      produces:
+        - application/json
+      parameters:
+        - name: facility
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: role
+          in: path
+          description: Role
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                cid:
+                  description: CERT ID of user
+                  type: integer
+                lname:
+                  description: Last name
+                  type: string
+                fname:
+                  description: First name
+                  type: string
+              type: object
+  /user/{cid}/roles/{facility}/{role}:
+    post:
+      tags:
+        - user
+        - role
+      summary: 'Assign new role. [Auth]'
+      description: |-
+        Assign new role. Requires JWT or Session Cookie (required roles :: for FE, EC, WM:
+            ATM, DATM; for MTR: TA; for all other roles: VATUSA STAFF)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: facility
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: role
+          in: path
+          description: Role
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+    delete:
+      tags:
+        - user
+        - role
+      summary: 'Delete role. [Auth]'
+      description: |-
+        Delete role. Requires JWT or Session Cookie (required role: for FE, EC, WM roles: ATM,
+            DATM; for MTR roles: TA; for all other roles: VATUSA STAFF)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: facility
+          in: path
+          description: Facility IATA ID
+          required: true
+          type: string
+        - name: role
+          in: path
+          description: Role
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: 'Not found, role may not be assigned'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+  /user/{cid}/transfer:
+    post:
+      tags:
+        - user
+        - transfer
+      summary: 'Submit transfer request. [Private]'
+      description: |-
+        Submit transfer request. CORS Restricted, Requires JWT or Session Cookie (self or VATUSA
+            staff)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: facility
+          in: formData
+          description: |-
+            Facility IATA
+                 *                                     ID
+          required: true
+          type: string
+        - name: reason
+          in: formData
+          description: |-
+            Reason for transfer
+                 *                                   request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Malformed request (missing field?)
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Facility not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+        '409':
+          description: |-
+            There was a conflict, usually meaning the user has a pending transfer request or is not
+                 *         eligible
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Conflict
+      security:
+        - jwt: []
+        - session: []
+  /user/{cid}/transfer/checklist:
+    get:
+      tags:
+        - user
+        - transfer
+      summary: 'Get user''s transfer checklist. [Key]'
+      description: |-
+        Get user's checklist. Requires JWT, API Key, or Session Cookie (required role [N/A for
+            apikey]: ATM, DATM, WM)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                item:
+                  description: Checklist checked item
+                  type: string
+                result:
+                  description: 'Result of check (OK, FAIL)'
+                  type: string
+              type: object
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /user/{cid}/rating:
+    post:
+      tags:
+        - user
+        - rating
+      summary: 'Submit rating change. [Auth]'
+      description: |-
+        Submit rating change. Requires JWT or Session Cookie (required role: ATM, DATM, TA, INS,
+            VATUSA STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: rating
+          in: formData
+          description: |-
+            Rating to change
+                rating to
+          required: true
+          type: string
+        - name: examDate
+          in: formData
+          description: |-
+            Date of exam (format, YYYY-MM-DD)
+                required for C1 and below
+          type: string
+        - name: examiner
+          in: formData
+          description: |-
+            CID of Examiner, if not provided
+                or null will default to authenticated user, required for C1 and below
+          type: integer
+        - name: position
+          in: formData
+          description: |-
+            Position sat during exam,
+                required for C1 and below
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+        '409':
+          description: 'Conflict, when current rating and promoted rating are the same or demotion not possible'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Conflict
+        '412':
+          description: Precondition failed (not eligible)
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Precondition failed
+        '500':
+          description: 'CERT error, contact data services team'
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Internal server error
+      security:
+        - jwt: []
+        - session: []
+  /user/{cid}/rating/history:
+    get:
+      tags:
+        - user
+        - rating
+      summary: 'Get user''s rating history. [Key]'
+      description: |-
+        Get user's rating history. Requires API Key, JWT or Session Cookie (required role if no apikey:
+             *     ATM, DATM, TA, INS, VATUSA STAFF)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Promotion'
+          examples:
+            application/json:
+              - id: 9486
+                cid: 876594
+                grantor: 111111
+                to: 8
+                from: 10
+                created_at: '2011-09-06T04:28:51+00:00'
+                exam: '0000-00-00'
+                examiner: 0
+                position: ''
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /user/{cid}/log:
+    get:
+      tags:
+        - user
+      summary: 'Get controller''s action log. [Private]'
+      description: |-
+        Get controller's action log. CORS Restricted. Requires JWT or Session Cookie (required
+            role: ATM, DATM, VATUSA STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: entry
+          in: formData
+          description: Entry to log
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Action'
+          examples:
+            application/json:
+              - id: 579572
+                to: 1394143
+                log: |-
+                  Joined division, facility set to ZAE
+                                 by CERTSync
+                created_at: '2017-06-01T00:02:09+00:00'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+    post:
+      tags:
+        - user
+      summary: 'Submit entry to controller''s action log. [Private]'
+      description: |-
+        Submit entry to controller's action log. CORS Restricted. Requires JWT or Session Cookie
+            (required role: ATM, DATM, VATUSA STAFF)
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: entry
+          in: formData
+          description: Entry to log
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '400':
+          description: Malformed request
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Malformed request
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+  /user/{cid}/transfer/history:
+    get:
+      tags:
+        - user
+        - transfer
+      summary: 'Get user''s transfer history. [Key]'
+      description: |-
+        Get user's transfer history. Requires API Key, JWT or Session Cookie (required role: [N/A for
+             *     API
+            Key] ATM, DATM, TA, WM, VATUSA STAFF)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transfer'
+          examples:
+            application/json:
+              - id: 673608
+                cid: 1055319
+                to: ZAE
+                from: ZNY
+                reason: |-
+                  Removed for
+                                 inactivity.
+                status: 1
+                actiontext: |-
+                  Removed for
+                      inactivity.
+                actionby: 0
+                created_at: '2017-01-01T12:06:27+00:00'
+                updated_at: '2017-01-01T12:06:27+00:00'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Not found
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /user/{cid}/cbt/history:
+    get:
+      tags:
+        - user
+        - cbt
+      summary: 'Get user''s CBT history. [Key]'
+      description: |-
+        Get user's CBT history. Requires API Key, authorization as senior staff, or self
+             *     authentication.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TrainingProgress'
+          examples:
+            application/json:
+              - cid: 876594
+                chapterid: 51
+                date: '2016-09-11T23:02:42+00:00'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /user/{cid}/cbt/progress/{blockId}:
+    get:
+      tags:
+        - user
+        - cbt
+      summary: 'Get user''s CBT history for block ID. [Key]'
+      description: |-
+        Get user's CBT history for block ID. Requires API Key, authorization as senior staff, or self
+             *     authentication.
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: blockId
+          in: path
+          required: true
+          description: Get progress of specific Block ID
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              properties:
+                chapterId:
+                  type: integer
+                chapterName:
+                  type: string
+                completed:
+                  type: boolean
+                date:
+                  description: |-
+                    Null if not completed, otherwise date
+                         *                                                completed
+                  type: string
+              type: object
+          examples:
+            application/json:
+              - chapterId: 97
+                chapterName: |-
+                  Basic ATC/S1
+                                 Orientation
+                completed: true
+                date: '2017-04-07T19:25:44+00:00'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+  /user/{cid}/cbt/progress/{blockId}/{chapterId}:
+    put:
+      tags:
+        - user
+        - cbt
+      summary: 'Update user''s CBT progress. [Key]'
+      description: |-
+        Marks chapter as completed. Requires API Key, JWT, or Session Cookie (must originate from
+            user if not using API Key)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+        - name: blockId
+          in: path
+          required: true
+          description: Block ID
+          type: integer
+        - name: chapterId
+          in: path
+          required: true
+          description: |-
+            Mark progress of specific Chapter
+                ID
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OK'
+          examples:
+            application/json:
+              status: OK
+              testing: false
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+  /user/{cid}/exam/history:
+    get:
+      tags:
+        - user
+        - exam
+      summary: 'Get user''s exam history. [Key]'
+      description: |-
+        Get user's exam history. Requires API Key, JWT, or Session Cookie (required role: [N/A
+            for API Key] ATM, DATM, TA, INS, VATUSA STAFF)
+      produces:
+        - application/json
+      parameters:
+        - name: cid
+          in: path
+          description: CERT ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExamResults'
+          examples:
+            application/json:
+              - id: 18307
+                exam_id: 7
+                exam_name: |-
+                  VATUSA - Basic ATC
+                                 Quiz
+                cid: 876594
+                score: 88
+                passed: 1
+                date: '2009-09-14T04:17:37+00:00'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Unauthorized
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/error'
+          examples:
+            application/json:
+              status: error
+              msg: Forbidden
+      security:
+        - jwt: []
+        - session: []
+        - apikey: []
+definitions:
+  Action:
+    properties:
+      id:
+        description: Class Action
+        type: integer
+      to:
+        description: CID log entered for
+        type: integer
+      log:
+        description: Class Action
+        type: string
+      created_at:
+        description: Date rating issued
+        type: string
+    type: object
+  Bucket:
+    properties:
+      id:
+        description: Class Bucket
+        type: integer
+      facility:
+        description: Class Bucket
+        type: string
+      name:
+        description: Class Bucket
+        type: string
+      arn:
+        description: Class Bucket
+        type: string
+      access_key:
+        description: Class Bucket
+        type: string
+      created_at:
+        description: Class Bucket
+        type: string
+      updated_at:
+        description: Class Bucket
+        type: string
+    type: object
+  EmailAccounts:
+    properties:
+      id:
+        description: Class EmailAccounts
+        type: integer
+      facility:
+        description: First name
+        type: string
+      username:
+        description: Last name
+        type: string
+    type: object
+  EmailTemplate:
+    properties:
+      id:
+        description: Class EmailTemplate
+        type: integer
+      facility_id:
+        description: Class EmailTemplate
+        type: string
+      template:
+        description: Template name
+        type: string
+      body:
+        description: Template
+        type: string
+      created_at:
+        description: date created
+        type: string
+      updated_at:
+        description: date last modified
+        type: string
+    type: object
+  Exam:
+    properties:
+      id:
+        description: Class Exam
+        type: integer
+      facility_id:
+        description: Class Exam
+        type: string
+      name:
+        description: Class Exam
+        type: string
+      number:
+        description: 'Number to ask, 0 = all'
+        type: integer
+      is_active:
+        description: 'integer representation of boolean (1=true,0=false)'
+        type: integer
+      cbt_required:
+        description: 'null = none, otherwise block id'
+        type: string
+      retake_period:
+        description: Number of days until automatic reassign (0=no auto-reassign)
+        type: integer
+      passing_score:
+        description: Percentage to pass times 100 (70%= .7 * 100=70)
+        type: integer
+      answer_visibility:
+        description: 'Answer visibility, all = user and correct, all_passed = all when passed otherwise just user answers, user_only = only user selected options'
+        type: string
+    type: object
+  ExamQuestions:
+    properties:
+      id:
+        description: Class ExamQuestions
+        type: integer
+      exam_id:
+        description: Class ExamQuestions
+        type: integer
+      question:
+        description: Class ExamQuestions
+        type: string
+      type:
+        description: '0-Multiple Choice, 1-True/False'
+        type: integer
+      answer:
+        description: Text of answer (True/False for T/F question type)
+        type: string
+      alt1:
+        description: 'Only for Mult. Choice, distractor'
+        type: string
+      alt2:
+        description: 'Only for Mult. Choice, distractor'
+        type: string
+      alt3:
+        description: 'Only for Mult. Choice, distractor'
+        type: string
+    type: object
+  ExamResults:
+    properties:
+      id:
+        description: Class ExamResults
+        type: integer
+      exam_id:
+        description: Class ExamResults
+        type: integer
+      exam_name:
+        description: Class ExamResults
+        type: string
+      cid:
+        description: Class ExamResults
+        type: integer
+      score:
+        description: Percentage times 100
+        type: integer
+      passed:
+        description: 'Integer representation of a boolean (1 = true, 0 = false)'
+        type: integer
+      date:
+        description: Date exam submitted
+        type: string
+    type: object
+  Facility:
+    properties:
+      id:
+        description: Facility IATA ID
+        type: string
+      name:
+        description: Class Facility
+        type: string
+      url:
+        description: Class Facility
+        type: string
+      region:
+        description: Region represented by ATD (ie 7 = VATUSA7)
+        type: integer
+    type: object
+  error:
+    properties:
+      status:
+        type: string
+        example: error
+      message:
+        type: string
+        example: not_logged_in
+      exception:
+        type: string
+      testing:
+        type: boolean
+        example: 'false'
+    type: object
+  OK:
+    properties:
+      status:
+        type: string
+        example: OK
+      testing:
+        type: boolean
+        example: 'false'
+    type: object
+  OKID:
+    properties:
+      status:
+        type: string
+        example: OK
+      id:
+        type: integer
+        example: 0
+    type: object
+  KnowledgebaseCategories:
+    properties:
+      id:
+        description: Class KnowledgebaseCategories
+        type: integer
+      name:
+        description: Class KnowledgebaseCategories
+        type: integer
+      questions:
+        description: Class KnowledgebaseCategories
+        type: array
+        items:
+          $ref: '#/definitions/KnowledgebaseQuestions'
+      created_at:
+        description: Class KnowledgebaseCategories
+        type: string
+    type: object
+  KnowledgebaseQuestions:
+    properties:
+      id:
+        description: Class KnowledgebaseQuestions
+        type: integer
+      category_id:
+        description: Class KnowledgebaseQuestions
+        type: integer
+      order:
+        description: Class KnowledgebaseQuestions
+        type: integer
+      question:
+        description: Class KnowledgebaseQuestions
+        type: string
+      answer:
+        description: Class KnowledgebaseQuestions
+        type: string
+      updated_by:
+        description: Class KnowledgebaseQuestions
+        type: integer
+      created_at:
+        description: Class KnowledgebaseQuestions
+        type: string
+      updated_at:
+        description: Class KnowledgebaseQuestions
+        type: string
+    type: object
+  otseval:
+    properties:
+      id:
+        description: Record ID
+        type: integer
+      filename:
+        description: Filename in system
+        type: string
+      training_record_id:
+        description: 'Training record DB ID, if exists'
+        type: integer
+      student_id:
+        description: Student CID
+        type: integer
+      instructor_id:
+        description: Instructor CID
+        type: integer
+      rating_id:
+        description: DB ID of rating
+        type: integer
+    type: object
+  Promotion:
+    properties:
+      id:
+        description: Class Promotion
+        type: integer
+      cid:
+        description: Class Promotion
+        type: integer
+      grantor:
+        description: 'CID of grantor, 11111 = system generated or conducted outside of VATUSA'
+        type: integer
+      to:
+        description: 'Rating based off array where 1=OBS, S1, S2, S3, C1, C2, C3, I1, I2, I3, SUP, ADM'
+        type: integer
+      from:
+        description: 'Rating based off array where 1=OBS, S1, S2, S3, C1, C2, C3, I1, I2, I3, SUP, ADM'
+        type: integer
+      created_at:
+        description: Date rating issued
+        type: string
+      exam:
+        description: Date of exam
+        type: string
+      examiner:
+        description: CERT ID of examiner
+        type: integer
+      position:
+        description: Position worked
+        type: string
+    type: object
+  Role:
+    properties:
+      id:
+        description: Class Role
+        type: integer
+      cid:
+        description: Class Role
+        type: integer
+      facility:
+        description: Class Role
+        type: string
+      role:
+        description: Class Role
+        type: string
+      created_at:
+        description: Class Role
+        type: string
+    type: object
+  Survey:
+    properties:
+      id:
+        description: Class Survey
+        type: integer
+      facility:
+        description: Class Survey
+        type: string
+      name:
+        description: Class Survey
+        type: string
+      created_at:
+        description: Date added to database
+        type: string
+      updated_at:
+        description: Class Survey
+        type: string
+    type: object
+  SurveyAssignment:
+    properties:
+      id:
+        description: Class SurveyQuestion
+        type: integer
+      survey_id:
+        description: Class SurveyQuestion
+        type: integer
+      facility:
+        description: Facility user was in when assigned
+        type: string
+      rating:
+        description: Rating when assigned
+        type: integer
+      completed:
+        description: Integer form of boolean
+        type: integer
+      created_at:
+        description: Date added to database
+        type: string
+      updated_at:
+        description: Class SurveyQuestion
+        type: string
+    type: object
+  SurveyQuestion:
+    properties:
+      id:
+        description: Class SurveyQuestion
+        type: integer
+      survey_id:
+        description: Class SurveyQuestion
+        type: integer
+      question:
+        description: Class SurveyQuestion
+        type: string
+      data:
+        description: Class SurveyQuestion
+        type: string
+      order:
+        description: Class SurveyQuestion
+        type: integer
+      created_at:
+        description: Date added to database
+        type: string
+      updated_at:
+        description: Class SurveyQuestion
+        type: string
+    type: object
+  TrainingBlock:
+    properties:
+      id:
+        description: Class TrainingBlock
+        type: integer
+      facility:
+        description: Class TrainingBlock
+        type: string
+      order:
+        description: Class TrainingBlock
+        type: integer
+      name:
+        description: Class TrainingBlock
+        type: string
+      level:
+        description: Class TrainingBlock
+        type: string
+        enum:
+          - ALL
+          - S1
+          - S2
+          - S3
+          - C1
+          - I1
+          - Staff
+          - Senior Staff
+      visible:
+        description: Class TrainingBlock
+        type: integer
+    type: object
+  TrainingProgress:
+    properties:
+      cid:
+        description: Class TrainingProgress
+        type: integer
+      chapterid:
+        description: Class TrainingProgress
+        type: integer
+      date:
+        description: Date last completed
+        type: string
+    type: object
+  TrainingRecord:
+    properties:
+      id:
+        description: Record ID
+        type: integer
+      student_id:
+        description: Student CID
+        type: integer
+      instructor_id:
+        description: Instructor CID
+        type: integer
+      session_date:
+        description: Date and time of session
+        type: string
+      facility_id:
+        description: Facility ID (ex. ZSE)
+        type: string
+      position:
+        description: Position worked/trained on (ex. SEA_APP)
+        type: string
+      duration:
+        description: 'Duration of session, HH:MM'
+        type: string
+      movements:
+        description: Number of aircraft seen
+        type: integer
+      score:
+        description: Overall score/rating out of 5
+        type: integer
+      notes:
+        description: Training notes content
+        type: string
+      location:
+        description: 0 = Classroom; 1 = Live; 2 = Sweatbox
+        type: integer
+      ots_status:
+        description: 'OTS Status: 0 = Not OTS, 1 = OTS Pass, 2 = OTS Fail, 3 = OTS Recommended'
+        type: boolean
+      is_cbt:
+        description: System - CBT Completion
+        type: boolean
+      solo_granted:
+        description: Solo was granted during the session
+        type: boolean
+      modified_by:
+        description: Editor CID
+        type: boolean
+    required:
+      - id
+      - student_id
+      - instructor_id
+      - session_date
+      - position
+      - duration
+      - notes
+      - location
+    type: object
+  Transfer:
+    properties:
+      id:
+        description: Class Transfer
+        type: integer
+      cid:
+        description: Class Transfer
+        type: integer
+      to:
+        description: Class Transfer
+        type: string
+      from:
+        description: Class Transfer
+        type: string
+      reason:
+        description: Class Transfer
+        type: string
+      status:
+        description: '0 pending, 1 approved, 2 rejected'
+        type: integer
+      actiontext:
+        description: Reasoning
+        type: string
+      actionby:
+        description: 'Cert ID, 0 is system processed [CERT Sync usually]'
+        type: integer
+      created_at:
+        description: Date transfer submitted
+        type: string
+      updated_at:
+        description: 'Date transfer was last acted on [not updated after processed]'
+        type: string
+    type: object
+  User:
+    properties:
+      cid:
+        description: Class User
+        type: integer
+      fname:
+        description: First name
+        type: string
+      lname:
+        description: Last name
+        type: string
+      email:
+        description: |-
+          Email address of user, will be null if API Key or
+           *                                     necessary roles are not available (ATM, DATM, TA, WM, INS)
+        type: string
+      facility:
+        description: Facility ID
+        type: string
+      rating:
+        description: |-
+          Rating based off array where 1=OBS, S1, S2, S3,
+           *                                      C1, C2, C3, I1, I2, I3, SUP, ADM
+        type: integer
+      rating_short:
+        description: String representation of rating
+        type: string
+      created_at:
+        description: Date added to database
+        type: string
+      updated_at:
+        description: Class User
+        type: string
+      flag_needbasic:
+        description: 1 needs basic exam
+        type: boolean
+      flag_xferOverride:
+        description: Has approved transfer override
+        type: boolean
+      flag_broadcastOptedIn:
+        description: |-
+          Has opted in to receiving broadcast
+           *                                                     emails
+        type: boolean
+      flag_preventStaffAssign:
+        description: |-
+          Ineligible for staff role
+           *                                                       assignment
+        type: boolean
+      facility_join:
+        description: |-
+          Date joined facility (YYYY-mm-dd
+           *                                             hh:mm:ss)
+        type: string
+      promotion_eligible:
+        description: Is member eligible for promotion?
+        type: boolean
+      transfer_eligible:
+        description: Is member is eligible for transfer?
+        type: boolean
+      flag_homecontroller:
+        description: 1-Belongs to VATUSA
+        type: boolean
+      lastactivity:
+        description: Date last seen on website
+        type: string
+      isMentor:
+        description: Has Mentor role
+        type: boolean
+      isSupIns:
+        description: Is a SUP and has INS role
+        type: boolean
+      roles:
+        description: Class User
+        type: array
+        items:
+          properties:
+            facility:
+              description: Class User
+              type: string
+            role:
+              description: Class User
+              type: string
+          type: object
+    type: object
+securityDefinitions:
+  jwt:
+    type: basic
+    description: JSON Web Token translated from Laravel session
+  session:
+    type: basic
+    description: Session cookie (Authentication on main website)
+  apikey:
+    type: apiKey
+    description: API Key issued to facilities and generated on Facility Management page
+    name: apikey
+    in: query
+tags:
+  - name: auth
+    description: Internal authentication handling commands for use by VATUSA Web Systems to translate Laravel Sessions into JSON Web Tokens
+  - name: cbt
+    description: Computer Based Training actions
+  - name: email
+    description: User email addresses for staff members
+  - name: exam
+    description: Exam center actions
+  - name: facility
+    description: Facility management actions
+  - name: transfer
+    description: Transfer request submission and handling actions
+  - name: rating
+    description: Rating changes
+  - name: role
+    description: Role handling
+  - name: solo
+    description: Solo certifications
+  - name: stats
+    description: Division statistics
+  - name: support
+    description: Support Center
+  - name: survey
+    description: Survey management
+  - name: training
+    description: Centralized training notes
+  - name: user
+    description: User account management actions
+  - name: tmu
+    description: Traffic Management Unit - Notices (NTOS)
