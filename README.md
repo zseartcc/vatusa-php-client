@@ -209,6 +209,7 @@ Class | Method | HTTP request | Description
  - [Bucket](docs/Model/Bucket.md)
  - [DeleteMemberRequest](docs/Model/DeleteMemberRequest.md)
  - [DeleteSoloRequest](docs/Model/DeleteSoloRequest.md)
+ - [DeleteVisitingMemberRequest](docs/Model/DeleteVisitingMemberRequest.md)
  - [EmailAccounts](docs/Model/EmailAccounts.md)
  - [EmailTemplate](docs/Model/EmailTemplate.md)
  - [Error](docs/Model/Error.md)

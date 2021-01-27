@@ -436,7 +436,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdRosterManageVisitorCidDelete**
-> \VATUSA\Client\Model\OK facilityIdRosterManageVisitorCidDelete($id, $cid, $reason)
+> \VATUSA\Client\Model\OK facilityIdRosterManageVisitorCidDelete($id, $cid, $deleteVisitingMemberRequest)
 
 Delete member from visiting roster. [Key]
 
@@ -470,10 +470,10 @@ $apiInstance = new VATUSA\Client\Api\FacilityApi(
 );
 $id = "id_example"; // string | Facility IATA ID
 $cid = 56; // int | CID of controller
-$reason = "reason_example"; // string | Reason for deletion
+$deleteVisitingMemberRequest = new \VATUSA\Client\Model\DeleteVisitingMemberRequest(); // \VATUSA\Client\Model\DeleteVisitingMemberRequest | request object for deleting visiting member
 
 try {
-    $result = $apiInstance->facilityIdRosterManageVisitorCidDelete($id, $cid, $reason);
+    $result = $apiInstance->facilityIdRosterManageVisitorCidDelete($id, $cid, $deleteVisitingMemberRequest);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling FacilityApi->facilityIdRosterManageVisitorCidDelete: ', $e->getMessage(), PHP_EOL;
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Facility IATA ID |
  **cid** | **int**| CID of controller |
- **reason** | **string**| Reason for deletion |
+ **deleteVisitingMemberRequest** | [**\VATUSA\Client\Model\DeleteVisitingMemberRequest**](../Model/DeleteVisitingMemberRequest.md)| request object for deleting visiting member |
 
 ### Return type
 

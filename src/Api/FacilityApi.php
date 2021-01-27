@@ -2304,15 +2304,15 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteVisitingMemberRequest $deleteVisitingMemberRequest request object for deleting visiting member (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \VATUSA\Client\Model\OK
      */
-    public function facilityIdRosterManageVisitorCidDelete($id, $cid, $reason)
+    public function facilityIdRosterManageVisitorCidDelete($id, $cid, $deleteVisitingMemberRequest)
     {
-        list($response) = $this->facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $reason);
+        list($response) = $this->facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $deleteVisitingMemberRequest);
         return $response;
     }
 
@@ -2323,16 +2323,16 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteVisitingMemberRequest $deleteVisitingMemberRequest request object for deleting visiting member (required)
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \VATUSA\Client\Model\OK, HTTP status code, HTTP response headers (array of strings)
      */
-    public function facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $reason)
+    public function facilityIdRosterManageVisitorCidDeleteWithHttpInfo($id, $cid, $deleteVisitingMemberRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason);
+        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $deleteVisitingMemberRequest);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2440,14 +2440,14 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteVisitingMemberRequest $deleteVisitingMemberRequest request object for deleting visiting member (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function facilityIdRosterManageVisitorCidDeleteAsync($id, $cid, $reason)
+    public function facilityIdRosterManageVisitorCidDeleteAsync($id, $cid, $deleteVisitingMemberRequest)
     {
-        return $this->facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+        return $this->facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $deleteVisitingMemberRequest)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2462,15 +2462,15 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteVisitingMemberRequest $deleteVisitingMemberRequest request object for deleting visiting member (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $reason)
+    public function facilityIdRosterManageVisitorCidDeleteAsyncWithHttpInfo($id, $cid, $deleteVisitingMemberRequest)
     {
         $returnType = '\VATUSA\Client\Model\OK';
-        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason);
+        $request = $this->facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $deleteVisitingMemberRequest);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2514,12 +2514,12 @@ class FacilityApi
      *
      * @param  string $id Facility IATA ID (required)
      * @param  int $cid CID of controller (required)
-     * @param  string $reason Reason for deletion (required)
+     * @param  \VATUSA\Client\Model\DeleteVisitingMemberRequest $deleteVisitingMemberRequest request object for deleting visiting member (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $reason)
+    protected function facilityIdRosterManageVisitorCidDeleteRequest($id, $cid, $deleteVisitingMemberRequest)
     {
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
@@ -2533,10 +2533,10 @@ class FacilityApi
                 'Missing the required parameter $cid when calling facilityIdRosterManageVisitorCidDelete'
             );
         }
-        // verify the required parameter 'reason' is set
-        if ($reason === null || (is_array($reason) && count($reason) === 0)) {
+        // verify the required parameter 'deleteVisitingMemberRequest' is set
+        if ($deleteVisitingMemberRequest === null || (is_array($deleteVisitingMemberRequest) && count($deleteVisitingMemberRequest) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $reason when calling facilityIdRosterManageVisitorCidDelete'
+                'Missing the required parameter $deleteVisitingMemberRequest when calling facilityIdRosterManageVisitorCidDelete'
             );
         }
 
@@ -2567,8 +2567,8 @@ class FacilityApi
 
         // body params
         $_tempBody = null;
-        if (isset($reason)) {
-            $_tempBody = $reason;
+        if (isset($deleteVisitingMemberRequest)) {
+            $_tempBody = $deleteVisitingMemberRequest;
         }
 
         if ($multipart) {
