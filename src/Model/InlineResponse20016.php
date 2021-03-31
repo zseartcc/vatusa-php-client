@@ -57,12 +57,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'int',
-        'cid' => 'int',
-        'lastname' => 'string',
-        'firstname' => 'string',
-        'position' => 'string',
-        'expDate' => 'string'
+        'status' => 'string',
+        'id' => 'int'
     ];
 
     /**
@@ -71,12 +67,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null,
-        'cid' => null,
-        'lastname' => null,
-        'firstname' => null,
-        'position' => null,
-        'expDate' => null
+        'status' => null,
+        'id' => null
     ];
 
     /**
@@ -106,12 +98,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'cid' => 'cid',
-        'lastname' => 'lastname',
-        'firstname' => 'firstname',
-        'position' => 'position',
-        'expDate' => 'expDate'
+        'status' => 'status',
+        'id' => 'id'
     ];
 
     /**
@@ -120,12 +108,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'cid' => 'setCid',
-        'lastname' => 'setLastname',
-        'firstname' => 'setFirstname',
-        'position' => 'setPosition',
-        'expDate' => 'setExpDate'
+        'status' => 'setStatus',
+        'id' => 'setId'
     ];
 
     /**
@@ -134,12 +118,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'cid' => 'getCid',
-        'lastname' => 'getLastname',
-        'firstname' => 'getFirstname',
-        'position' => 'getPosition',
-        'expDate' => 'getExpDate'
+        'status' => 'getStatus',
+        'id' => 'getId'
     ];
 
     /**
@@ -202,12 +182,8 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['cid'] = isset($data['cid']) ? $data['cid'] : null;
-        $this->container['lastname'] = isset($data['lastname']) ? $data['lastname'] : null;
-        $this->container['firstname'] = isset($data['firstname']) ? $data['firstname'] : null;
-        $this->container['position'] = isset($data['position']) ? $data['position'] : null;
-        $this->container['expDate'] = isset($data['expDate']) ? $data['expDate'] : null;
     }
 
     /**
@@ -235,6 +211,30 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string $status status
+     *
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return int
@@ -247,133 +247,13 @@ class InlineResponse20016 implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int $id Solo Certification id
+     * @param int $id ID number of solo certification
      *
      * @return $this
      */
     public function setId($id)
     {
         $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets cid
-     *
-     * @return int
-     */
-    public function getCid()
-    {
-        return $this->container['cid'];
-    }
-
-    /**
-     * Sets cid
-     *
-     * @param int $cid CERT ID of user
-     *
-     * @return $this
-     */
-    public function setCid($cid)
-    {
-        $this->container['cid'] = $cid;
-
-        return $this;
-    }
-
-    /**
-     * Gets lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->container['lastname'];
-    }
-
-    /**
-     * Sets lastname
-     *
-     * @param string $lastname Last name
-     *
-     * @return $this
-     */
-    public function setLastname($lastname)
-    {
-        $this->container['lastname'] = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Gets firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->container['firstname'];
-    }
-
-    /**
-     * Sets firstname
-     *
-     * @param string $firstname First name
-     *
-     * @return $this
-     */
-    public function setFirstname($firstname)
-    {
-        $this->container['firstname'] = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Gets position
-     *
-     * @return string
-     */
-    public function getPosition()
-    {
-        return $this->container['position'];
-    }
-
-    /**
-     * Sets position
-     *
-     * @param string $position Position ID (XYZ_APP, ZZZ_CTR)
-     *
-     * @return $this
-     */
-    public function setPosition($position)
-    {
-        $this->container['position'] = $position;
-
-        return $this;
-    }
-
-    /**
-     * Gets expDate
-     *
-     * @return string
-     */
-    public function getExpDate()
-    {
-        return $this->container['expDate'];
-    }
-
-    /**
-     * Sets expDate
-     *
-     * @param string $expDate Expiration Date (YYYY-MM-DD)
-     *
-     * @return $this
-     */
-    public function setExpDate($expDate)
-    {
-        $this->container['expDate'] = $expDate;
 
         return $this;
     }

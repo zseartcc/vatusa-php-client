@@ -2995,7 +2995,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\User[]
+     * @return \VATUSA\Client\Model\InlineResponse20011
      */
     public function facilityIdRosterMembershipGet($id, $membership)
     {
@@ -3013,11 +3013,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\User[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20011, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdRosterMembershipGetWithHttpInfo($id, $membership)
     {
-        $returnType = '\VATUSA\Client\Model\User[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20011';
         $request = $this->facilityIdRosterMembershipGetRequest($id, $membership);
 
         try {
@@ -3069,7 +3069,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\User[]',
+                        '\VATUSA\Client\Model\InlineResponse20011',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3121,7 +3121,7 @@ class FacilityApi
      */
     public function facilityIdRosterMembershipGetAsyncWithHttpInfo($id, $membership)
     {
-        $returnType = '\VATUSA\Client\Model\User[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20011';
         $request = $this->facilityIdRosterMembershipGetRequest($id, $membership);
 
         return $this->client
@@ -3295,7 +3295,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20011
+     * @return \VATUSA\Client\Model\InlineResponse20012
      */
     public function facilityIdTransfersGet($id)
     {
@@ -3312,11 +3312,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20011, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20012, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdTransfersGetWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20011';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20012';
         $request = $this->facilityIdTransfersGetRequest($id);
 
         try {
@@ -3368,7 +3368,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20011',
+                        '\VATUSA\Client\Model\InlineResponse20012',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3434,7 +3434,7 @@ class FacilityApi
      */
     public function facilityIdTransfersGetAsyncWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20011';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20012';
         $request = $this->facilityIdTransfersGetRequest($id);
 
         return $this->client
@@ -3953,7 +3953,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20012
+     * @return \VATUSA\Client\Model\InlineResponse20013
      */
     public function facilityIdUlsReturnsGet($id)
     {
@@ -3970,11 +3970,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20012, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdUlsReturnsGetWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20012';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
         $request = $this->facilityIdUlsReturnsGetRequest($id);
 
         try {
@@ -4026,7 +4026,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20012',
+                        '\VATUSA\Client\Model\InlineResponse20013',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4092,7 +4092,7 @@ class FacilityApi
      */
     public function facilityIdUlsReturnsGetAsyncWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20012';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
         $request = $this->facilityIdUlsReturnsGetRequest($id);
 
         return $this->client
@@ -4260,7 +4260,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20013
+     * @return \VATUSA\Client\Model\InlineResponse20014
      */
     public function facilityIdUlsReturnsOrderDelete($id, $order)
     {
@@ -4278,11 +4278,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20014, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdUlsReturnsOrderDeleteWithHttpInfo($id, $order)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsOrderDeleteRequest($id, $order);
 
         try {
@@ -4334,7 +4334,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20013',
+                        '\VATUSA\Client\Model\InlineResponse20014',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4410,7 +4410,7 @@ class FacilityApi
      */
     public function facilityIdUlsReturnsOrderDeleteAsyncWithHttpInfo($id, $order)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsOrderDeleteRequest($id, $order);
 
         return $this->client
@@ -4594,7 +4594,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20013
+     * @return \VATUSA\Client\Model\InlineResponse20014
      */
     public function facilityIdUlsReturnsPost($id, $order, $url)
     {
@@ -4613,11 +4613,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20014, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdUlsReturnsPostWithHttpInfo($id, $order, $url)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsPostRequest($id, $order, $url);
 
         try {
@@ -4669,7 +4669,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20013',
+                        '\VATUSA\Client\Model\InlineResponse20014',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4747,7 +4747,7 @@ class FacilityApi
      */
     public function facilityIdUlsReturnsPostAsyncWithHttpInfo($id, $order, $url)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsPostRequest($id, $order, $url);
 
         return $this->client
@@ -4937,7 +4937,7 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20013
+     * @return \VATUSA\Client\Model\InlineResponse20014
      */
     public function facilityIdUlsReturnsPut($id, $url)
     {
@@ -4955,11 +4955,11 @@ class FacilityApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20014, HTTP status code, HTTP response headers (array of strings)
      */
     public function facilityIdUlsReturnsPutWithHttpInfo($id, $url)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsPutRequest($id, $url);
 
         try {
@@ -5011,7 +5011,7 @@ class FacilityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20013',
+                        '\VATUSA\Client\Model\InlineResponse20014',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5087,7 +5087,7 @@ class FacilityApi
      */
     public function facilityIdUlsReturnsPutAsyncWithHttpInfo($id, $url)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->facilityIdUlsReturnsPutRequest($id, $url);
 
         return $this->client

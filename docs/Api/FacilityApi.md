@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdRosterMembershipGet**
-> \VATUSA\Client\Model\User[] facilityIdRosterMembershipGet($id, $membership)
+> \VATUSA\Client\Model\InlineResponse20011 facilityIdRosterMembershipGet($id, $membership)
 
 Get facility roster.
 
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\User[]**](../Model/User.md)
+[**\VATUSA\Client\Model\InlineResponse20011**](../Model/InlineResponse20011.md)
 
 ### Authorization
 
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdTransfersGet**
-> \VATUSA\Client\Model\InlineResponse20011 facilityIdTransfersGet($id)
+> \VATUSA\Client\Model\InlineResponse20012 facilityIdTransfersGet($id)
 
 Get pending transfers. [Key]
 
@@ -680,7 +680,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20011**](../Model/InlineResponse20011.md)
+[**\VATUSA\Client\Model\InlineResponse20012**](../Model/InlineResponse20012.md)
 
 ### Authorization
 
@@ -761,7 +761,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdUlsReturnsGet**
-> \VATUSA\Client\Model\InlineResponse20012 facilityIdUlsReturnsGet($id)
+> \VATUSA\Client\Model\InlineResponse20013 facilityIdUlsReturnsGet($id)
 
 Get ULS return paths. [Key]
 
@@ -812,7 +812,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20012**](../Model/InlineResponse20012.md)
+[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
 
 ### Authorization
 
@@ -826,7 +826,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdUlsReturnsOrderDelete**
-> \VATUSA\Client\Model\InlineResponse20013 facilityIdUlsReturnsOrderDelete($id, $order)
+> \VATUSA\Client\Model\InlineResponse20014 facilityIdUlsReturnsOrderDelete($id, $order)
 
 Remove ULS return path. [Key]
 
@@ -879,7 +879,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
+[**\VATUSA\Client\Model\InlineResponse20014**](../Model/InlineResponse20014.md)
 
 ### Authorization
 
@@ -893,7 +893,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdUlsReturnsPost**
-> \VATUSA\Client\Model\InlineResponse20013 facilityIdUlsReturnsPost($id, $order, $url)
+> \VATUSA\Client\Model\InlineResponse20014 facilityIdUlsReturnsPost($id, $order, $url)
 
 Add ULS return path. [Key]
 
@@ -948,7 +948,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
+[**\VATUSA\Client\Model\InlineResponse20014**](../Model/InlineResponse20014.md)
 
 ### Authorization
 
@@ -962,7 +962,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **facilityIdUlsReturnsPut**
-> \VATUSA\Client\Model\InlineResponse20013 facilityIdUlsReturnsPut($id, $url)
+> \VATUSA\Client\Model\InlineResponse20014 facilityIdUlsReturnsPut($id, $url)
 
 Edit ULS return path. [Key]
 
@@ -1015,7 +1015,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
+[**\VATUSA\Client\Model\InlineResponse20014**](../Model/InlineResponse20014.md)
 
 ### Authorization
 

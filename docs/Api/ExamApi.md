@@ -652,7 +652,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidExamHistoryGet**
-> \VATUSA\Client\Model\ExamResults[] userCidExamHistoryGet($cid)
+> \VATUSA\Client\Model\InlineResponse20027 userCidExamHistoryGet($cid)
 
 Get user's exam history. [Key]
 
@@ -703,7 +703,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\ExamResults[]**](../Model/ExamResults.md)
+[**\VATUSA\Client\Model\InlineResponse20027**](../Model/InlineResponse20027.md)
 
 ### Authorization
 

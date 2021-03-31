@@ -96,7 +96,7 @@ class TransferApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20024[]
+     * @return \VATUSA\Client\Model\InlineResponse20025[]
      */
     public function userCidTransferChecklistGet($cid)
     {
@@ -113,11 +113,11 @@ class TransferApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20024[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20025[], HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidTransferChecklistGetWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidTransferChecklistGetRequest($cid);
 
         try {
@@ -169,7 +169,7 @@ class TransferApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20024[]',
+                        '\VATUSA\Client\Model\InlineResponse20025[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -227,7 +227,7 @@ class TransferApi
      */
     public function userCidTransferChecklistGetAsyncWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20024[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20025[]';
         $request = $this->userCidTransferChecklistGetRequest($cid);
 
         return $this->client

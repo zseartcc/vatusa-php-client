@@ -58,7 +58,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'status' => 'string',
-        'paths' => '\VATUSA\Client\Model\InlineResponse20012Paths[]'
+        'transfers' => '\VATUSA\Client\Model\InlineResponse20012Transfers[]'
     ];
 
     /**
@@ -68,7 +68,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'status' => null,
-        'paths' => null
+        'transfers' => null
     ];
 
     /**
@@ -99,7 +99,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'status' => 'status',
-        'paths' => 'paths'
+        'transfers' => 'transfers'
     ];
 
     /**
@@ -109,7 +109,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'status' => 'setStatus',
-        'paths' => 'setPaths'
+        'transfers' => 'setTransfers'
     ];
 
     /**
@@ -119,7 +119,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'status' => 'getStatus',
-        'paths' => 'getPaths'
+        'transfers' => 'getTransfers'
     ];
 
     /**
@@ -183,7 +183,7 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['paths'] = isset($data['paths']) ? $data['paths'] : null;
+        $this->container['transfers'] = isset($data['transfers']) ? $data['transfers'] : null;
     }
 
     /**
@@ -235,25 +235,25 @@ class InlineResponse20012 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets paths
+     * Gets transfers
      *
-     * @return \VATUSA\Client\Model\InlineResponse20012Paths[]
+     * @return \VATUSA\Client\Model\InlineResponse20012Transfers[]
      */
-    public function getPaths()
+    public function getTransfers()
     {
-        return $this->container['paths'];
+        return $this->container['transfers'];
     }
 
     /**
-     * Sets paths
+     * Sets transfers
      *
-     * @param \VATUSA\Client\Model\InlineResponse20012Paths[] $paths paths
+     * @param \VATUSA\Client\Model\InlineResponse20012Transfers[] $transfers transfers
      *
      * @return $this
      */
-    public function setPaths($paths)
+    public function setTransfers($transfers)
     {
-        $this->container['paths'] = $paths;
+        $this->container['transfers'] = $transfers;
 
         return $this;
     }

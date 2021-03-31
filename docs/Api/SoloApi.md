@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **soloGet**
-> \VATUSA\Client\Model\InlineResponse20014[] soloGet($position)
+> \VATUSA\Client\Model\InlineResponse20015 soloGet($position)
 
 Get list of active solo certifications.
 
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20014[]**](../Model/InlineResponse20014.md)
+[**\VATUSA\Client\Model\InlineResponse20015**](../Model/InlineResponse20015.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **soloPost**
-> \VATUSA\Client\Model\InlineResponse20015 soloPost($newSoloRequest)
+> \VATUSA\Client\Model\InlineResponse20016 soloPost($newSoloRequest)
 
 Submit new solo certification. [Key]
 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20015**](../Model/InlineResponse20015.md)
+[**\VATUSA\Client\Model\InlineResponse20016**](../Model/InlineResponse20016.md)
 
 ### Authorization
 

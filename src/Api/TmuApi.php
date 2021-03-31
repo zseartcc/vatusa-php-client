@@ -394,7 +394,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20021[]
+     * @return \VATUSA\Client\Model\InlineResponse20022[]
      */
     public function tmuNoticeIdGet($id)
     {
@@ -411,11 +411,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20021[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20022[], HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticeIdGetWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022[]';
         $request = $this->tmuNoticeIdGetRequest($id);
 
         try {
@@ -467,7 +467,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20021[]',
+                        '\VATUSA\Client\Model\InlineResponse20022[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -509,7 +509,7 @@ class TmuApi
      */
     public function tmuNoticeIdGetAsyncWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20022[]';
         $request = $this->tmuNoticeIdGetRequest($id);
 
         return $this->client
@@ -670,7 +670,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20013
+     * @return \VATUSA\Client\Model\InlineResponse20014
      */
     public function tmuNoticeIdPut($id, $facility = null, $priority = null, $message = null, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
@@ -694,11 +694,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20014, HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticeIdPutWithHttpInfo($id, $facility = null, $priority = null, $message = null, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->tmuNoticeIdPutRequest($id, $facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute);
 
         try {
@@ -750,7 +750,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20013',
+                        '\VATUSA\Client\Model\InlineResponse20014',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -830,7 +830,7 @@ class TmuApi
      */
     public function tmuNoticeIdPutAsyncWithHttpInfo($id, $facility = null, $priority = null, $message = null, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->tmuNoticeIdPutRequest($id, $facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute);
 
         return $this->client
@@ -1034,7 +1034,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20020[]
+     * @return \VATUSA\Client\Model\InlineResponse20021[]
      */
     public function tmuNoticesGet($facility = null, $children = null, $onlyactive = null)
     {
@@ -1053,11 +1053,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20020[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20021[], HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticesGetWithHttpInfo($facility = null, $children = null, $onlyactive = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
         $request = $this->tmuNoticesGetRequest($facility, $children, $onlyactive);
 
         try {
@@ -1109,7 +1109,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20020[]',
+                        '\VATUSA\Client\Model\InlineResponse20021[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1155,7 +1155,7 @@ class TmuApi
      */
     public function tmuNoticesGetAsyncWithHttpInfo($facility = null, $children = null, $onlyactive = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20020[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20021[]';
         $request = $this->tmuNoticesGetRequest($facility, $children, $onlyactive);
 
         return $this->client
@@ -1315,7 +1315,7 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20013
+     * @return \VATUSA\Client\Model\InlineResponse20014
      */
     public function tmuNoticesPost($facility, $priority, $message, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
@@ -1338,11 +1338,11 @@ class TmuApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20013, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20014, HTTP status code, HTTP response headers (array of strings)
      */
     public function tmuNoticesPostWithHttpInfo($facility, $priority, $message, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->tmuNoticesPostRequest($facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute);
 
         try {
@@ -1394,7 +1394,7 @@ class TmuApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20013',
+                        '\VATUSA\Client\Model\InlineResponse20014',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1472,7 +1472,7 @@ class TmuApi
      */
     public function tmuNoticesPostAsyncWithHttpInfo($facility, $priority, $message, $startDate = null, $expireDate = null, $isDelay = null, $isPrefRoute = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20013';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20014';
         $request = $this->tmuNoticesPostRequest($facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute);
 
         return $this->client

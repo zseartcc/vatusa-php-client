@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticeIdGet**
-> \VATUSA\Client\Model\InlineResponse20021[] tmuNoticeIdGet($id)
+> \VATUSA\Client\Model\InlineResponse20022[] tmuNoticeIdGet($id)
 
 Get TMU Notice info.
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20021[]**](../Model/InlineResponse20021.md)
+[**\VATUSA\Client\Model\InlineResponse20022[]**](../Model/InlineResponse20022.md)
 
 ### Authorization
 
@@ -126,7 +126,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticeIdPut**
-> \VATUSA\Client\Model\InlineResponse20013 tmuNoticeIdPut($id, $facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute)
+> \VATUSA\Client\Model\InlineResponse20014 tmuNoticeIdPut($id, $facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute)
 
 Edit TMU Notice. [Key]
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
+[**\VATUSA\Client\Model\InlineResponse20014**](../Model/InlineResponse20014.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticesGet**
-> \VATUSA\Client\Model\InlineResponse20020[] tmuNoticesGet($facility, $children, $onlyactive)
+> \VATUSA\Client\Model\InlineResponse20021[] tmuNoticesGet($facility, $children, $onlyactive)
 
 Get list of TMU Notices.
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20020[]**](../Model/InlineResponse20020.md)
+[**\VATUSA\Client\Model\InlineResponse20021[]**](../Model/InlineResponse20021.md)
 
 ### Authorization
 
@@ -258,7 +258,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **tmuNoticesPost**
-> \VATUSA\Client\Model\InlineResponse20013 tmuNoticesPost($facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute)
+> \VATUSA\Client\Model\InlineResponse20014 tmuNoticesPost($facility, $priority, $message, $startDate, $expireDate, $isDelay, $isPrefRoute)
 
 Add new TMU Notice. [Key]
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20013**](../Model/InlineResponse20013.md)
+[**\VATUSA\Client\Model\InlineResponse20014**](../Model/InlineResponse20014.md)
 
 ### Authorization
 

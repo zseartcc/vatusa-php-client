@@ -57,7 +57,8 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => 'string'
+        'status' => 'string',
+        'paths' => '\VATUSA\Client\Model\InlineResponse20013Paths[]'
     ];
 
     /**
@@ -66,7 +67,8 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'status' => null
+        'status' => null,
+        'paths' => null
     ];
 
     /**
@@ -96,7 +98,8 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status'
+        'status' => 'status',
+        'paths' => 'paths'
     ];
 
     /**
@@ -105,7 +108,8 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus'
+        'status' => 'setStatus',
+        'paths' => 'setPaths'
     ];
 
     /**
@@ -114,7 +118,8 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus'
+        'status' => 'getStatus',
+        'paths' => 'getPaths'
     ];
 
     /**
@@ -178,6 +183,7 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['paths'] = isset($data['paths']) ? $data['paths'] : null;
     }
 
     /**
@@ -224,6 +230,30 @@ class InlineResponse20013 implements ModelInterface, ArrayAccess
     public function setStatus($status)
     {
         $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets paths
+     *
+     * @return \VATUSA\Client\Model\InlineResponse20013Paths[]
+     */
+    public function getPaths()
+    {
+        return $this->container['paths'];
+    }
+
+    /**
+     * Sets paths
+     *
+     * @param \VATUSA\Client\Model\InlineResponse20013Paths[] $paths paths
+     *
+     * @return $this
+     */
+    public function setPaths($paths)
+    {
+        $this->container['paths'] = $paths;
 
         return $this;
     }

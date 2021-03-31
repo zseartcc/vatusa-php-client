@@ -57,8 +57,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => 'string',
-        'id' => 'int'
+        'data' => '\VATUSA\Client\Model\Solo[]',
+        'testing' => 'bool'
     ];
 
     /**
@@ -67,8 +67,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'status' => null,
-        'id' => null
+        'data' => null,
+        'testing' => null
     ];
 
     /**
@@ -98,8 +98,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status',
-        'id' => 'id'
+        'data' => 'data',
+        'testing' => 'testing'
     ];
 
     /**
@@ -108,8 +108,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus',
-        'id' => 'setId'
+        'data' => 'setData',
+        'testing' => 'setTesting'
     ];
 
     /**
@@ -118,8 +118,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus',
-        'id' => 'getId'
+        'data' => 'getData',
+        'testing' => 'getTesting'
     ];
 
     /**
@@ -182,8 +182,8 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['testing'] = isset($data['testing']) ? $data['testing'] : null;
     }
 
     /**
@@ -211,49 +211,49 @@ class InlineResponse20015 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets status
+     * Gets data
      *
-     * @return string
+     * @return \VATUSA\Client\Model\Solo[]
      */
-    public function getStatus()
+    public function getData()
     {
-        return $this->container['status'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets status
+     * Sets data
      *
-     * @param string $status status
+     * @param \VATUSA\Client\Model\Solo[] $data data
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setData($data)
     {
-        $this->container['status'] = $status;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets id
+     * Gets testing
      *
-     * @return int
+     * @return bool
      */
-    public function getId()
+    public function getTesting()
     {
-        return $this->container['id'];
+        return $this->container['testing'];
     }
 
     /**
-     * Sets id
+     * Sets testing
      *
-     * @param int $id ID number of solo certification
+     * @param bool $testing testing
      *
      * @return $this
      */
-    public function setId($id)
+    public function setTesting($testing)
     {
-        $this->container['id'] = $id;
+        $this->container['testing'] = $testing;
 
         return $this;
     }

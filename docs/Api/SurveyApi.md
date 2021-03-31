@@ -61,7 +61,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **surveyIdGet**
-> \VATUSA\Client\Model\InlineResponse20019 surveyIdGet($id)
+> \VATUSA\Client\Model\InlineResponse20020 surveyIdGet($id)
 
 Get survey questions. [Private]
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20019**](../Model/InlineResponse20019.md)
+[**\VATUSA\Client\Model\InlineResponse20020**](../Model/InlineResponse20020.md)
 
 ### Authorization
 

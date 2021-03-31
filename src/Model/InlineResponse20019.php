@@ -58,8 +58,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'status' => 'string',
-        'survey' => '\VATUSA\Client\Model\Survey',
-        'items' => '\VATUSA\Client\Model\SurveyQuestion[]'
+        'staff' => '\VATUSA\Client\Model\InlineResponse20019Staff[]'
     ];
 
     /**
@@ -69,8 +68,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'status' => null,
-        'survey' => null,
-        'items' => null
+        'staff' => null
     ];
 
     /**
@@ -101,8 +99,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'status' => 'status',
-        'survey' => 'survey',
-        'items' => 'items'
+        'staff' => 'staff'
     ];
 
     /**
@@ -112,8 +109,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'status' => 'setStatus',
-        'survey' => 'setSurvey',
-        'items' => 'setItems'
+        'staff' => 'setStaff'
     ];
 
     /**
@@ -123,8 +119,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'status' => 'getStatus',
-        'survey' => 'getSurvey',
-        'items' => 'getItems'
+        'staff' => 'getStaff'
     ];
 
     /**
@@ -188,8 +183,7 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['survey'] = isset($data['survey']) ? $data['survey'] : null;
-        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
+        $this->container['staff'] = isset($data['staff']) ? $data['staff'] : null;
     }
 
     /**
@@ -241,49 +235,25 @@ class InlineResponse20019 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets survey
+     * Gets staff
      *
-     * @return \VATUSA\Client\Model\Survey
+     * @return \VATUSA\Client\Model\InlineResponse20019Staff[]
      */
-    public function getSurvey()
+    public function getStaff()
     {
-        return $this->container['survey'];
+        return $this->container['staff'];
     }
 
     /**
-     * Sets survey
+     * Sets staff
      *
-     * @param \VATUSA\Client\Model\Survey $survey survey
+     * @param \VATUSA\Client\Model\InlineResponse20019Staff[] $staff staff
      *
      * @return $this
      */
-    public function setSurvey($survey)
+    public function setStaff($staff)
     {
-        $this->container['survey'] = $survey;
-
-        return $this;
-    }
-
-    /**
-     * Gets items
-     *
-     * @return \VATUSA\Client\Model\SurveyQuestion[]
-     */
-    public function getItems()
-    {
-        return $this->container['items'];
-    }
-
-    /**
-     * Sets items
-     *
-     * @param \VATUSA\Client\Model\SurveyQuestion[] $items items
-     *
-     * @return $this
-     */
-    public function setItems($items)
-    {
-        $this->container['items'] = $items;
+        $this->container['staff'] = $staff;
 
         return $this;
     }

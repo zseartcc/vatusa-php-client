@@ -389,7 +389,7 @@ class SoloApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20014[]
+     * @return \VATUSA\Client\Model\InlineResponse20015
      */
     public function soloGet($position = null)
     {
@@ -406,11 +406,11 @@ class SoloApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20014[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20015, HTTP status code, HTTP response headers (array of strings)
      */
     public function soloGetWithHttpInfo($position = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20014[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20015';
         $request = $this->soloGetRequest($position);
 
         try {
@@ -462,7 +462,7 @@ class SoloApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20014[]',
+                        '\VATUSA\Client\Model\InlineResponse20015',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -504,7 +504,7 @@ class SoloApi
      */
     public function soloGetAsyncWithHttpInfo($position = null)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20014[]';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20015';
         $request = $this->soloGetRequest($position);
 
         return $this->client
@@ -648,7 +648,7 @@ class SoloApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20015
+     * @return \VATUSA\Client\Model\InlineResponse20016
      */
     public function soloPost($newSoloRequest)
     {
@@ -665,11 +665,11 @@ class SoloApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20015, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20016, HTTP status code, HTTP response headers (array of strings)
      */
     public function soloPostWithHttpInfo($newSoloRequest)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20015';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20016';
         $request = $this->soloPostRequest($newSoloRequest);
 
         try {
@@ -721,7 +721,7 @@ class SoloApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20015',
+                        '\VATUSA\Client\Model\InlineResponse20016',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -787,7 +787,7 @@ class SoloApi
      */
     public function soloPostAsyncWithHttpInfo($newSoloRequest)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20015';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20016';
         $request = $this->soloPostRequest($newSoloRequest);
 
         return $this->client

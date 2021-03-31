@@ -57,8 +57,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'item' => 'string',
-        'result' => 'string'
+        'cid' => 'int',
+        'lname' => 'string',
+        'fname' => 'string'
     ];
 
     /**
@@ -67,8 +68,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'item' => null,
-        'result' => null
+        'cid' => null,
+        'lname' => null,
+        'fname' => null
     ];
 
     /**
@@ -98,8 +100,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'item' => 'item',
-        'result' => 'result'
+        'cid' => 'cid',
+        'lname' => 'lname',
+        'fname' => 'fname'
     ];
 
     /**
@@ -108,8 +111,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'item' => 'setItem',
-        'result' => 'setResult'
+        'cid' => 'setCid',
+        'lname' => 'setLname',
+        'fname' => 'setFname'
     ];
 
     /**
@@ -118,8 +122,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'item' => 'getItem',
-        'result' => 'getResult'
+        'cid' => 'getCid',
+        'lname' => 'getLname',
+        'fname' => 'getFname'
     ];
 
     /**
@@ -182,8 +187,9 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['item'] = isset($data['item']) ? $data['item'] : null;
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['cid'] = isset($data['cid']) ? $data['cid'] : null;
+        $this->container['lname'] = isset($data['lname']) ? $data['lname'] : null;
+        $this->container['fname'] = isset($data['fname']) ? $data['fname'] : null;
     }
 
     /**
@@ -211,49 +217,73 @@ class InlineResponse20024 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets item
+     * Gets cid
      *
-     * @return string
+     * @return int
      */
-    public function getItem()
+    public function getCid()
     {
-        return $this->container['item'];
+        return $this->container['cid'];
     }
 
     /**
-     * Sets item
+     * Sets cid
      *
-     * @param string $item Checklist checked item
+     * @param int $cid CERT ID of user
      *
      * @return $this
      */
-    public function setItem($item)
+    public function setCid($cid)
     {
-        $this->container['item'] = $item;
+        $this->container['cid'] = $cid;
 
         return $this;
     }
 
     /**
-     * Gets result
+     * Gets lname
      *
      * @return string
      */
-    public function getResult()
+    public function getLname()
     {
-        return $this->container['result'];
+        return $this->container['lname'];
     }
 
     /**
-     * Sets result
+     * Sets lname
      *
-     * @param string $result Result of check (OK, FAIL)
+     * @param string $lname Last name
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setLname($lname)
     {
-        $this->container['result'] = $result;
+        $this->container['lname'] = $lname;
+
+        return $this;
+    }
+
+    /**
+     * Gets fname
+     *
+     * @return string
+     */
+    public function getFname()
+    {
+        return $this->container['fname'];
+    }
+
+    /**
+     * Sets fname
+     *
+     * @param string $fname First name
+     *
+     * @return $this
+     */
+    public function setFname($fname)
+    {
+        $this->container['fname'] = $fname;
 
         return $this;
     }

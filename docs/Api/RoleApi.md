@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userRolesFacilityRoleGet**
-> \VATUSA\Client\Model\InlineResponse20023[] userRolesFacilityRoleGet($facility, $role)
+> \VATUSA\Client\Model\InlineResponse20024[] userRolesFacilityRoleGet($facility, $role)
 
 Get users assigned to specific staff role.
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20023[]**](../Model/InlineResponse20023.md)
+[**\VATUSA\Client\Model\InlineResponse20024[]**](../Model/InlineResponse20024.md)
 
 ### Authorization
 

@@ -58,7 +58,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'status' => 'string',
-        'staff' => '\VATUSA\Client\Model\InlineResponse20018Staff[]'
+        'depts' => '\VATUSA\Client\Model\InlineResponse20018Depts[]'
     ];
 
     /**
@@ -68,7 +68,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'status' => null,
-        'staff' => null
+        'depts' => null
     ];
 
     /**
@@ -99,7 +99,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'status' => 'status',
-        'staff' => 'staff'
+        'depts' => 'depts'
     ];
 
     /**
@@ -109,7 +109,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'status' => 'setStatus',
-        'staff' => 'setStaff'
+        'depts' => 'setDepts'
     ];
 
     /**
@@ -119,7 +119,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'status' => 'getStatus',
-        'staff' => 'getStaff'
+        'depts' => 'getDepts'
     ];
 
     /**
@@ -183,7 +183,7 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['staff'] = isset($data['staff']) ? $data['staff'] : null;
+        $this->container['depts'] = isset($data['depts']) ? $data['depts'] : null;
     }
 
     /**
@@ -235,25 +235,25 @@ class InlineResponse20018 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets staff
+     * Gets depts
      *
-     * @return \VATUSA\Client\Model\InlineResponse20018Staff[]
+     * @return \VATUSA\Client\Model\InlineResponse20018Depts[]
      */
-    public function getStaff()
+    public function getDepts()
     {
-        return $this->container['staff'];
+        return $this->container['depts'];
     }
 
     /**
-     * Sets staff
+     * Sets depts
      *
-     * @param \VATUSA\Client\Model\InlineResponse20018Staff[] $staff staff
+     * @param \VATUSA\Client\Model\InlineResponse20018Depts[] $depts depts
      *
      * @return $this
      */
-    public function setStaff($staff)
+    public function setDepts($depts)
     {
-        $this->container['staff'] = $staff;
+        $this->container['depts'] = $depts;
 
         return $this;
     }

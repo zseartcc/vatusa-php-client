@@ -400,7 +400,7 @@ class SurveyApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20019
+     * @return \VATUSA\Client\Model\InlineResponse20020
      */
     public function surveyIdGet($id)
     {
@@ -417,11 +417,11 @@ class SurveyApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20019, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20020, HTTP status code, HTTP response headers (array of strings)
      */
     public function surveyIdGetWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20019';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20020';
         $request = $this->surveyIdGetRequest($id);
 
         try {
@@ -473,7 +473,7 @@ class SurveyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20019',
+                        '\VATUSA\Client\Model\InlineResponse20020',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -531,7 +531,7 @@ class SurveyApi
      */
     public function surveyIdGetAsyncWithHttpInfo($id)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20019';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20020';
         $request = $this->surveyIdGetRequest($id);
 
         return $this->client

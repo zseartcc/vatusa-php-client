@@ -57,8 +57,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => 'string',
-        'id' => 'int'
+        'id' => 'int',
+        'tmuFacility' => '\VATUSA\Client\Model\TmunoticesTmuFacility[]',
+        'priority' => 'string',
+        'message' => 'string',
+        'expireDate' => 'string',
+        'startDate' => 'string',
+        'isDelay' => 'bool',
+        'isPrefRoute' => 'bool'
     ];
 
     /**
@@ -67,8 +73,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'status' => null,
-        'id' => null
+        'id' => null,
+        'tmuFacility' => null,
+        'priority' => null,
+        'message' => null,
+        'expireDate' => null,
+        'startDate' => null,
+        'isDelay' => null,
+        'isPrefRoute' => null
     ];
 
     /**
@@ -98,8 +110,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status',
-        'id' => 'id'
+        'id' => 'id',
+        'tmuFacility' => 'tmu_facility',
+        'priority' => 'priority',
+        'message' => 'message',
+        'expireDate' => 'expire_date',
+        'startDate' => 'start_date',
+        'isDelay' => 'is_delay',
+        'isPrefRoute' => 'is_pref_route'
     ];
 
     /**
@@ -108,8 +126,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus',
-        'id' => 'setId'
+        'id' => 'setId',
+        'tmuFacility' => 'setTmuFacility',
+        'priority' => 'setPriority',
+        'message' => 'setMessage',
+        'expireDate' => 'setExpireDate',
+        'startDate' => 'setStartDate',
+        'isDelay' => 'setIsDelay',
+        'isPrefRoute' => 'setIsPrefRoute'
     ];
 
     /**
@@ -118,8 +142,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus',
-        'id' => 'getId'
+        'id' => 'getId',
+        'tmuFacility' => 'getTmuFacility',
+        'priority' => 'getPriority',
+        'message' => 'getMessage',
+        'expireDate' => 'getExpireDate',
+        'startDate' => 'getStartDate',
+        'isDelay' => 'getIsDelay',
+        'isPrefRoute' => 'getIsPrefRoute'
     ];
 
     /**
@@ -182,8 +212,14 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['tmuFacility'] = isset($data['tmuFacility']) ? $data['tmuFacility'] : null;
+        $this->container['priority'] = isset($data['priority']) ? $data['priority'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+        $this->container['expireDate'] = isset($data['expireDate']) ? $data['expireDate'] : null;
+        $this->container['startDate'] = isset($data['startDate']) ? $data['startDate'] : null;
+        $this->container['isDelay'] = isset($data['isDelay']) ? $data['isDelay'] : null;
+        $this->container['isPrefRoute'] = isset($data['isPrefRoute']) ? $data['isPrefRoute'] : null;
     }
 
     /**
@@ -211,30 +247,6 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->container['status'];
-    }
-
-    /**
-     * Sets status
-     *
-     * @param string $status status
-     *
-     * @return $this
-     */
-    public function setStatus($status)
-    {
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
      * Gets id
      *
      * @return int
@@ -247,13 +259,181 @@ class InlineResponse20022 implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int $id DB ID of Record
+     * @param int $id TMU Notice ID
      *
      * @return $this
      */
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets tmuFacility
+     *
+     * @return \VATUSA\Client\Model\TmunoticesTmuFacility[]
+     */
+    public function getTmuFacility()
+    {
+        return $this->container['tmuFacility'];
+    }
+
+    /**
+     * Sets tmuFacility
+     *
+     * @param \VATUSA\Client\Model\TmunoticesTmuFacility[] $tmuFacility tmuFacility
+     *
+     * @return $this
+     */
+    public function setTmuFacility($tmuFacility)
+    {
+        $this->container['tmuFacility'] = $tmuFacility;
+
+        return $this;
+    }
+
+    /**
+     * Gets priority
+     *
+     * @return string
+     */
+    public function getPriority()
+    {
+        return $this->container['priority'];
+    }
+
+    /**
+     * Sets priority
+     *
+     * @param string $priority Priority of notice                                                                       (0:Low,1:Standard,2:Urgent)
+     *
+     * @return $this
+     */
+    public function setPriority($priority)
+    {
+        $this->container['priority'] = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Gets message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string $message Notice content
+     *
+     * @return $this
+     */
+    public function setMessage($message)
+    {
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets expireDate
+     *
+     * @return string
+     */
+    public function getExpireDate()
+    {
+        return $this->container['expireDate'];
+    }
+
+    /**
+     * Sets expireDate
+     *
+     * @param string $expireDate Expiration time in Zulu (YYYY-MM-DD H:i:s)
+     *
+     * @return $this
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->container['expireDate'] = $expireDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets startDate
+     *
+     * @return string
+     */
+    public function getStartDate()
+    {
+        return $this->container['startDate'];
+    }
+
+    /**
+     * Sets startDate
+     *
+     * @param string $startDate Start time in Zulu (YYYY-MM-DD H:i:s)
+     *
+     * @return $this
+     */
+    public function setStartDate($startDate)
+    {
+        $this->container['startDate'] = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets isDelay
+     *
+     * @return bool
+     */
+    public function getIsDelay()
+    {
+        return $this->container['isDelay'];
+    }
+
+    /**
+     * Sets isDelay
+     *
+     * @param bool $isDelay TMU Notice is a ground stop or delay.
+     *
+     * @return $this
+     */
+    public function setIsDelay($isDelay)
+    {
+        $this->container['isDelay'] = $isDelay;
+
+        return $this;
+    }
+
+    /**
+     * Gets isPrefRoute
+     *
+     * @return bool
+     */
+    public function getIsPrefRoute()
+    {
+        return $this->container['isPrefRoute'];
+    }
+
+    /**
+     * Sets isPrefRoute
+     *
+     * @param bool $isPrefRoute TMU Notice is a preferred routing
+     *
+     * @return $this
+     */
+    public function setIsPrefRoute($isPrefRoute)
+    {
+        $this->container['isPrefRoute'] = $isPrefRoute;
 
         return $this;
     }

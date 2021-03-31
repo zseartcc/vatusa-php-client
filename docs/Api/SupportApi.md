@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **supportTicketsDeptsDeptStaffGet**
-> \VATUSA\Client\Model\InlineResponse20018 supportTicketsDeptsDeptStaffGet($dept)
+> \VATUSA\Client\Model\InlineResponse20019 supportTicketsDeptsDeptStaffGet($dept)
 
 Get list of assignable staff members for department.
 
@@ -480,7 +480,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20018**](../Model/InlineResponse20018.md)
+[**\VATUSA\Client\Model\InlineResponse20019**](../Model/InlineResponse20019.md)
 
 ### Authorization
 
@@ -494,7 +494,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **supportTicketsDeptsGet**
-> \VATUSA\Client\Model\InlineResponse20017 supportTicketsDeptsGet()
+> \VATUSA\Client\Model\InlineResponse20018 supportTicketsDeptsGet()
 
 Get list of assignable departments.
 
@@ -525,7 +525,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20017**](../Model/InlineResponse20017.md)
+[**\VATUSA\Client\Model\InlineResponse20018**](../Model/InlineResponse20018.md)
 
 ### Authorization
 

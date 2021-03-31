@@ -57,8 +57,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'status' => 'string',
-        'transfers' => '\VATUSA\Client\Model\InlineResponse20011Transfers[]'
+        'data' => '\VATUSA\Client\Model\User[]',
+        'testing' => 'bool'
     ];
 
     /**
@@ -67,8 +67,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'status' => null,
-        'transfers' => null
+        'data' => null,
+        'testing' => null
     ];
 
     /**
@@ -98,8 +98,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status',
-        'transfers' => 'transfers'
+        'data' => 'data',
+        'testing' => 'testing'
     ];
 
     /**
@@ -108,8 +108,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus',
-        'transfers' => 'setTransfers'
+        'data' => 'setData',
+        'testing' => 'setTesting'
     ];
 
     /**
@@ -118,8 +118,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus',
-        'transfers' => 'getTransfers'
+        'data' => 'getData',
+        'testing' => 'getTesting'
     ];
 
     /**
@@ -182,8 +182,8 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['transfers'] = isset($data['transfers']) ? $data['transfers'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['testing'] = isset($data['testing']) ? $data['testing'] : null;
     }
 
     /**
@@ -211,49 +211,49 @@ class InlineResponse20011 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets status
+     * Gets data
      *
-     * @return string
+     * @return \VATUSA\Client\Model\User[]
      */
-    public function getStatus()
+    public function getData()
     {
-        return $this->container['status'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets status
+     * Sets data
      *
-     * @param string $status status
+     * @param \VATUSA\Client\Model\User[] $data data
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setData($data)
     {
-        $this->container['status'] = $status;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets transfers
+     * Gets testing
      *
-     * @return \VATUSA\Client\Model\InlineResponse20011Transfers[]
+     * @return bool
      */
-    public function getTransfers()
+    public function getTesting()
     {
-        return $this->container['transfers'];
+        return $this->container['testing'];
     }
 
     /**
-     * Sets transfers
+     * Sets testing
      *
-     * @param \VATUSA\Client\Model\InlineResponse20011Transfers[] $transfers transfers
+     * @param bool $testing testing
      *
      * @return $this
      */
-    public function setTransfers($transfers)
+    public function setTesting($testing)
     {
-        $this->container['transfers'] = $transfers;
+        $this->container['testing'] = $testing;
 
         return $this;
     }
