@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **userCidTransferChecklistGet**
-> \VATUSA\Client\Model\InlineResponse20025[] userCidTransferChecklistGet($cid)
+> \VATUSA\Client\Model\InlineResponse20027[] userCidTransferChecklistGet($cid)
 
 Get user's transfer checklist. [Key]
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20025[]**](../Model/InlineResponse20025.md)
+[**\VATUSA\Client\Model\InlineResponse20027[]**](../Model/InlineResponse20027.md)
 
 ### Authorization
 

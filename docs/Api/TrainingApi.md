@@ -273,7 +273,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **trainingRecordRecordIDGet**
-> \VATUSA\Client\Model\TrainingRecord trainingRecordRecordIDGet($recordID)
+> \VATUSA\Client\Model\InlineResponse20023 trainingRecordRecordIDGet($recordID)
 
 Get training record. [Key]
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\TrainingRecord**](../Model/TrainingRecord.md)
+[**\VATUSA\Client\Model\InlineResponse20023**](../Model/InlineResponse20023.md)
 
 ### Authorization
 
@@ -398,7 +398,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **trainingRecordRecordIDPut**
-> \VATUSA\Client\Model\InlineResponse20023 trainingRecordRecordIDPut($recordID, $body)
+> \VATUSA\Client\Model\InlineResponse20024 trainingRecordRecordIDPut($recordID, $body)
 
 Edit training record. [Key]
 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20023**](../Model/InlineResponse20023.md)
+[**\VATUSA\Client\Model\InlineResponse20024**](../Model/InlineResponse20024.md)
 
 ### Authorization
 
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidTrainingRecordPost**
-> \VATUSA\Client\Model\InlineResponse20023 userCidTrainingRecordPost($cid, $body)
+> \VATUSA\Client\Model\InlineResponse20025 userCidTrainingRecordPost($cid, $body)
 
 Submit new training record. [Key]
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20023**](../Model/InlineResponse20023.md)
+[**\VATUSA\Client\Model\InlineResponse20025**](../Model/InlineResponse20025.md)
 
 ### Authorization
 

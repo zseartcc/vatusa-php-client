@@ -243,6 +243,8 @@ Class | Method | HTTP request | Description
  - [InlineResponse20025](docs/Model/InlineResponse20025.md)
  - [InlineResponse20026](docs/Model/InlineResponse20026.md)
  - [InlineResponse20027](docs/Model/InlineResponse20027.md)
+ - [InlineResponse20028](docs/Model/InlineResponse20028.md)
+ - [InlineResponse20029](docs/Model/InlineResponse20029.md)
  - [InlineResponse2002Chapters](docs/Model/InlineResponse2002Chapters.md)
  - [InlineResponse2003](docs/Model/InlineResponse2003.md)
  - [InlineResponse2004](docs/Model/InlineResponse2004.md)

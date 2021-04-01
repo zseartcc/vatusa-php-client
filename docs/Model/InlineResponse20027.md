@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**\VATUSA\Client\Model\ExamResults[]**](ExamResults.md) |  | [optional] 
-**testing** | **bool** |  | [optional] 
+**item** | **string** | Checklist checked item | [optional] 
+**result** | **string** | Result of check (OK, FAIL) | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

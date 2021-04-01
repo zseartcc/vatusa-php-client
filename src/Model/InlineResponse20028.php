@@ -1,6 +1,6 @@
 <?php
 /**
- * InlineResponse20026
+ * InlineResponse20028
  *
  * PHP version 5
  *
@@ -33,14 +33,14 @@ use \ArrayAccess;
 use \VATUSA\Client\ObjectSerializer;
 
 /**
- * InlineResponse20026 Class Doc Comment
+ * InlineResponse20028 Class Doc Comment
  *
  * @category Class
  * @package  VATUSA\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class InlineResponse20026 implements ModelInterface, ArrayAccess
+class InlineResponse20028 implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'inline_response_200_26';
+    protected static $swaggerModelName = 'inline_response_200_28';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'cid' => 'int',
-        'lname' => 'string',
-        'fname' => 'string'
+        'chapterId' => 'int',
+        'chapterName' => 'string',
+        'completed' => 'bool',
+        'date' => 'string'
     ];
 
     /**
@@ -68,9 +69,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'cid' => null,
-        'lname' => null,
-        'fname' => null
+        'chapterId' => null,
+        'chapterName' => null,
+        'completed' => null,
+        'date' => null
     ];
 
     /**
@@ -100,9 +102,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'cid' => 'cid',
-        'lname' => 'lname',
-        'fname' => 'fname'
+        'chapterId' => 'chapterId',
+        'chapterName' => 'chapterName',
+        'completed' => 'completed',
+        'date' => 'date'
     ];
 
     /**
@@ -111,9 +114,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'cid' => 'setCid',
-        'lname' => 'setLname',
-        'fname' => 'setFname'
+        'chapterId' => 'setChapterId',
+        'chapterName' => 'setChapterName',
+        'completed' => 'setCompleted',
+        'date' => 'setDate'
     ];
 
     /**
@@ -122,9 +126,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'cid' => 'getCid',
-        'lname' => 'getLname',
-        'fname' => 'getFname'
+        'chapterId' => 'getChapterId',
+        'chapterName' => 'getChapterName',
+        'completed' => 'getCompleted',
+        'date' => 'getDate'
     ];
 
     /**
@@ -187,9 +192,10 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['cid'] = isset($data['cid']) ? $data['cid'] : null;
-        $this->container['lname'] = isset($data['lname']) ? $data['lname'] : null;
-        $this->container['fname'] = isset($data['fname']) ? $data['fname'] : null;
+        $this->container['chapterId'] = isset($data['chapterId']) ? $data['chapterId'] : null;
+        $this->container['chapterName'] = isset($data['chapterName']) ? $data['chapterName'] : null;
+        $this->container['completed'] = isset($data['completed']) ? $data['completed'] : null;
+        $this->container['date'] = isset($data['date']) ? $data['date'] : null;
     }
 
     /**
@@ -217,73 +223,97 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets cid
+     * Gets chapterId
      *
      * @return int
      */
-    public function getCid()
+    public function getChapterId()
     {
-        return $this->container['cid'];
+        return $this->container['chapterId'];
     }
 
     /**
-     * Sets cid
+     * Sets chapterId
      *
-     * @param int $cid CERT ID of user
+     * @param int $chapterId chapterId
      *
      * @return $this
      */
-    public function setCid($cid)
+    public function setChapterId($chapterId)
     {
-        $this->container['cid'] = $cid;
+        $this->container['chapterId'] = $chapterId;
 
         return $this;
     }
 
     /**
-     * Gets lname
+     * Gets chapterName
      *
      * @return string
      */
-    public function getLname()
+    public function getChapterName()
     {
-        return $this->container['lname'];
+        return $this->container['chapterName'];
     }
 
     /**
-     * Sets lname
+     * Sets chapterName
      *
-     * @param string $lname Last name
+     * @param string $chapterName chapterName
      *
      * @return $this
      */
-    public function setLname($lname)
+    public function setChapterName($chapterName)
     {
-        $this->container['lname'] = $lname;
+        $this->container['chapterName'] = $chapterName;
 
         return $this;
     }
 
     /**
-     * Gets fname
+     * Gets completed
      *
-     * @return string
+     * @return bool
      */
-    public function getFname()
+    public function getCompleted()
     {
-        return $this->container['fname'];
+        return $this->container['completed'];
     }
 
     /**
-     * Sets fname
+     * Sets completed
      *
-     * @param string $fname First name
+     * @param bool $completed completed
      *
      * @return $this
      */
-    public function setFname($fname)
+    public function setCompleted($completed)
     {
-        $this->container['fname'] = $fname;
+        $this->container['completed'] = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Gets date
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->container['date'];
+    }
+
+    /**
+     * Sets date
+     *
+     * @param string $date Null if not completed, otherwise date      *                                                completed
+     *
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->container['date'] = $date;
 
         return $this;
     }

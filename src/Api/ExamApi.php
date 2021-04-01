@@ -3577,7 +3577,7 @@ class ExamApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \VATUSA\Client\Model\InlineResponse20027
+     * @return \VATUSA\Client\Model\InlineResponse20029
      */
     public function userCidExamHistoryGet($cid)
     {
@@ -3594,11 +3594,11 @@ class ExamApi
      *
      * @throws \VATUSA\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \VATUSA\Client\Model\InlineResponse20027, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \VATUSA\Client\Model\InlineResponse20029, HTTP status code, HTTP response headers (array of strings)
      */
     public function userCidExamHistoryGetWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20027';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20029';
         $request = $this->userCidExamHistoryGetRequest($cid);
 
         try {
@@ -3650,7 +3650,7 @@ class ExamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\VATUSA\Client\Model\InlineResponse20027',
+                        '\VATUSA\Client\Model\InlineResponse20029',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3708,7 +3708,7 @@ class ExamApi
      */
     public function userCidExamHistoryGetAsyncWithHttpInfo($cid)
     {
-        $returnType = '\VATUSA\Client\Model\InlineResponse20027';
+        $returnType = '\VATUSA\Client\Model\InlineResponse20029';
         $request = $this->userCidExamHistoryGetRequest($cid);
 
         return $this->client

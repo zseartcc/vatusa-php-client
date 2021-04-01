@@ -1,6 +1,6 @@
 <?php
 /**
- * InlineResponse20026
+ * InlineResponse20029
  *
  * PHP version 5
  *
@@ -33,14 +33,14 @@ use \ArrayAccess;
 use \VATUSA\Client\ObjectSerializer;
 
 /**
- * InlineResponse20026 Class Doc Comment
+ * InlineResponse20029 Class Doc Comment
  *
  * @category Class
  * @package  VATUSA\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class InlineResponse20026 implements ModelInterface, ArrayAccess
+class InlineResponse20029 implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'inline_response_200_26';
+    protected static $swaggerModelName = 'inline_response_200_29';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'cid' => 'int',
-        'lname' => 'string',
-        'fname' => 'string'
+        'data' => '\VATUSA\Client\Model\ExamResults[]',
+        'testing' => 'bool'
     ];
 
     /**
@@ -68,9 +67,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'cid' => null,
-        'lname' => null,
-        'fname' => null
+        'data' => null,
+        'testing' => null
     ];
 
     /**
@@ -100,9 +98,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'cid' => 'cid',
-        'lname' => 'lname',
-        'fname' => 'fname'
+        'data' => 'data',
+        'testing' => 'testing'
     ];
 
     /**
@@ -111,9 +108,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'cid' => 'setCid',
-        'lname' => 'setLname',
-        'fname' => 'setFname'
+        'data' => 'setData',
+        'testing' => 'setTesting'
     ];
 
     /**
@@ -122,9 +118,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'cid' => 'getCid',
-        'lname' => 'getLname',
-        'fname' => 'getFname'
+        'data' => 'getData',
+        'testing' => 'getTesting'
     ];
 
     /**
@@ -187,9 +182,8 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['cid'] = isset($data['cid']) ? $data['cid'] : null;
-        $this->container['lname'] = isset($data['lname']) ? $data['lname'] : null;
-        $this->container['fname'] = isset($data['fname']) ? $data['fname'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['testing'] = isset($data['testing']) ? $data['testing'] : null;
     }
 
     /**
@@ -217,73 +211,49 @@ class InlineResponse20026 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets cid
+     * Gets data
      *
-     * @return int
+     * @return \VATUSA\Client\Model\ExamResults[]
      */
-    public function getCid()
+    public function getData()
     {
-        return $this->container['cid'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets cid
+     * Sets data
      *
-     * @param int $cid CERT ID of user
+     * @param \VATUSA\Client\Model\ExamResults[] $data data
      *
      * @return $this
      */
-    public function setCid($cid)
+    public function setData($data)
     {
-        $this->container['cid'] = $cid;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets lname
+     * Gets testing
      *
-     * @return string
+     * @return bool
      */
-    public function getLname()
+    public function getTesting()
     {
-        return $this->container['lname'];
+        return $this->container['testing'];
     }
 
     /**
-     * Sets lname
+     * Sets testing
      *
-     * @param string $lname Last name
+     * @param bool $testing testing
      *
      * @return $this
      */
-    public function setLname($lname)
+    public function setTesting($testing)
     {
-        $this->container['lname'] = $lname;
-
-        return $this;
-    }
-
-    /**
-     * Gets fname
-     *
-     * @return string
-     */
-    public function getFname()
-    {
-        return $this->container['fname'];
-    }
-
-    /**
-     * Sets fname
-     *
-     * @param string $fname First name
-     *
-     * @return $this
-     */
-    public function setFname($fname)
-    {
-        $this->container['fname'] = $fname;
+        $this->container['testing'] = $testing;
 
         return $this;
     }

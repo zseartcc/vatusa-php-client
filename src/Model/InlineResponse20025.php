@@ -57,8 +57,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'item' => 'string',
-        'result' => 'string'
+        'data' => '\VATUSA\Client\Model\InlineResponse20024',
+        'testing' => 'bool'
     ];
 
     /**
@@ -67,8 +67,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'item' => null,
-        'result' => null
+        'data' => null,
+        'testing' => null
     ];
 
     /**
@@ -98,8 +98,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'item' => 'item',
-        'result' => 'result'
+        'data' => 'data',
+        'testing' => 'testing'
     ];
 
     /**
@@ -108,8 +108,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'item' => 'setItem',
-        'result' => 'setResult'
+        'data' => 'setData',
+        'testing' => 'setTesting'
     ];
 
     /**
@@ -118,8 +118,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'item' => 'getItem',
-        'result' => 'getResult'
+        'data' => 'getData',
+        'testing' => 'getTesting'
     ];
 
     /**
@@ -182,8 +182,8 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['item'] = isset($data['item']) ? $data['item'] : null;
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['testing'] = isset($data['testing']) ? $data['testing'] : null;
     }
 
     /**
@@ -211,49 +211,49 @@ class InlineResponse20025 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets item
+     * Gets data
      *
-     * @return string
+     * @return \VATUSA\Client\Model\InlineResponse20024
      */
-    public function getItem()
+    public function getData()
     {
-        return $this->container['item'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets item
+     * Sets data
      *
-     * @param string $item Checklist checked item
+     * @param \VATUSA\Client\Model\InlineResponse20024 $data data
      *
      * @return $this
      */
-    public function setItem($item)
+    public function setData($data)
     {
-        $this->container['item'] = $item;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets result
+     * Gets testing
      *
-     * @return string
+     * @return bool
      */
-    public function getResult()
+    public function getTesting()
     {
-        return $this->container['result'];
+        return $this->container['testing'];
     }
 
     /**
-     * Sets result
+     * Sets testing
      *
-     * @param string $result Result of check (OK, FAIL)
+     * @param bool $testing testing
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setTesting($testing)
     {
-        $this->container['result'] = $result;
+        $this->container['testing'] = $testing;
 
         return $this;
     }

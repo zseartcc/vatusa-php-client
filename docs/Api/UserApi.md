@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidCbtProgressBlockIdGet**
-> \VATUSA\Client\Model\InlineResponse20026[] userCidCbtProgressBlockIdGet($cid, $blockId)
+> \VATUSA\Client\Model\InlineResponse20028[] userCidCbtProgressBlockIdGet($cid, $blockId)
 
 Get user's CBT history for block ID. [Key]
 
@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20026[]**](../Model/InlineResponse20026.md)
+[**\VATUSA\Client\Model\InlineResponse20028[]**](../Model/InlineResponse20028.md)
 
 ### Authorization
 
@@ -316,7 +316,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidExamHistoryGet**
-> \VATUSA\Client\Model\InlineResponse20027 userCidExamHistoryGet($cid)
+> \VATUSA\Client\Model\InlineResponse20029 userCidExamHistoryGet($cid)
 
 Get user's exam history. [Key]
 
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20027**](../Model/InlineResponse20027.md)
+[**\VATUSA\Client\Model\InlineResponse20029**](../Model/InlineResponse20029.md)
 
 ### Authorization
 
@@ -1016,7 +1016,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userCidTransferChecklistGet**
-> \VATUSA\Client\Model\InlineResponse20025[] userCidTransferChecklistGet($cid)
+> \VATUSA\Client\Model\InlineResponse20027[] userCidTransferChecklistGet($cid)
 
 Get user's transfer checklist. [Key]
 
@@ -1067,7 +1067,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20025[]**](../Model/InlineResponse20025.md)
+[**\VATUSA\Client\Model\InlineResponse20027[]**](../Model/InlineResponse20027.md)
 
 ### Authorization
 
@@ -1211,7 +1211,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **userRolesFacilityRoleGet**
-> \VATUSA\Client\Model\InlineResponse20024[] userRolesFacilityRoleGet($facility, $role)
+> \VATUSA\Client\Model\InlineResponse20026[] userRolesFacilityRoleGet($facility, $role)
 
 Get users assigned to specific staff role.
 
@@ -1248,7 +1248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\VATUSA\Client\Model\InlineResponse20024[]**](../Model/InlineResponse20024.md)
+[**\VATUSA\Client\Model\InlineResponse20026[]**](../Model/InlineResponse20026.md)
 
 ### Authorization
 

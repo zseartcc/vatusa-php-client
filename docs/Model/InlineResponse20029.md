@@ -1,10 +1,9 @@
-# InlineResponse20023
+# InlineResponse20029
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**\VATUSA\Client\Model\InlineResponse20014**](InlineResponse20014.md) |  | [optional] 
-**status** | **string** |  | [optional] 
+**data** | [**\VATUSA\Client\Model\ExamResults[]**](ExamResults.md) |  | [optional] 
 **testing** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

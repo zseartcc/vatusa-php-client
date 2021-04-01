@@ -57,8 +57,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'data' => '\VATUSA\Client\Model\InlineResponse20014',
         'status' => 'string',
-        'id' => 'int'
+        'testing' => 'bool'
     ];
 
     /**
@@ -67,8 +68,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'data' => null,
         'status' => null,
-        'id' => null
+        'testing' => null
     ];
 
     /**
@@ -98,8 +100,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'data' => 'data',
         'status' => 'status',
-        'id' => 'id'
+        'testing' => 'testing'
     ];
 
     /**
@@ -108,8 +111,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'data' => 'setData',
         'status' => 'setStatus',
-        'id' => 'setId'
+        'testing' => 'setTesting'
     ];
 
     /**
@@ -118,8 +122,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'data' => 'getData',
         'status' => 'getStatus',
-        'id' => 'getId'
+        'testing' => 'getTesting'
     ];
 
     /**
@@ -182,8 +187,9 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['testing'] = isset($data['testing']) ? $data['testing'] : null;
     }
 
     /**
@@ -211,6 +217,30 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets data
+     *
+     * @return \VATUSA\Client\Model\InlineResponse20014
+     */
+    public function getData()
+    {
+        return $this->container['data'];
+    }
+
+    /**
+     * Sets data
+     *
+     * @param \VATUSA\Client\Model\InlineResponse20014 $data data
+     *
+     * @return $this
+     */
+    public function setData($data)
+    {
+        $this->container['data'] = $data;
+
+        return $this;
+    }
+
+    /**
      * Gets status
      *
      * @return string
@@ -235,25 +265,25 @@ class InlineResponse20023 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets id
+     * Gets testing
      *
-     * @return int
+     * @return bool
      */
-    public function getId()
+    public function getTesting()
     {
-        return $this->container['id'];
+        return $this->container['testing'];
     }
 
     /**
-     * Sets id
+     * Sets testing
      *
-     * @param int $id DB ID of Record
+     * @param bool $testing testing
      *
      * @return $this
      */
-    public function setId($id)
+    public function setTesting($testing)
     {
-        $this->container['id'] = $id;
+        $this->container['testing'] = $testing;
 
         return $this;
     }

@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item** | **string** | Checklist checked item | [optional] 
-**result** | **string** | Result of check (OK, FAIL) | [optional] 
+**data** | [**\VATUSA\Client\Model\InlineResponse20024**](InlineResponse20024.md) |  | [optional] 
+**testing** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
