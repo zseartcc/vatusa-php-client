@@ -5156,7 +5156,7 @@ class UserApi
             // Regenerating them does not seem like an option right now. See
             // https://discord.com/channels/699659614928502815/699750310800785418/1213579725981749329
             // in #wm-chat in the VATUSA discord
-            return $content;
+            return [$content];
 
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
