@@ -88,7 +88,7 @@ class AcademyApi
             }
 
             $responseBody = $response->getBody();
-            return json_decode($content);
+            return json_decode($responseBody);
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
