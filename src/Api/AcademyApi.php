@@ -88,12 +88,12 @@ class AcademyApi
             }
 
             $responseBody = $response->getBody();
-            return json_decode($responseBody);
+            return json_decode($responseBody, true);
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
-                    return json_decode($e->getResponseBody());
+                    return json_decode($e->getResponseBody(), true);
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
